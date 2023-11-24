@@ -1,0 +1,8 @@
+node_modules
+.vscode/
+.DS_Store
+server-logs.txt
+.env
+request_logs.txt
+access.log
+server-logs
