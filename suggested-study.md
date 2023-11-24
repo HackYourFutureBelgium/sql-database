@@ -1,5 +1,7 @@
 # Suggested Study
 
+## SQL
+
 -   [MySQL Official Documentation](https://dev.mysql.com/doc/): Comprehensive documentation for MySQL, covering installation, configuration, and usage.
 
 -   [W3Schools SQL Tutorial](https://www.w3schools.com/sql/): A beginner-friendly tutorial on SQL, offering interactive examples and exercises.
@@ -25,3 +27,8 @@
 
 -   [SQL Essential Training](https://www.linkedin.com/learning/sql-essential-training)
 -   [Codecademy SQL Course](https://www.codecademy.com/learn/learn-sql)
+
+## MongoDB
+
+-   [MongoDB documentation](https://docs.mongodb.com/manual/)
+-   [official Mongoose documentation](https://mongoosejs.com/docs/)

@@ -105,20 +105,77 @@ In the world of data management and database systems, SQL (Structured Query Lang
 
 -   Exploring advanced topics and techniques in Sequelize ORM.
 
+### NoSQL
+
+23. **Understanding NoSQL Concepts:**
+
+    -   Define what NoSQL databases are and how they differ from traditional SQL databases.
+    -   Explain the advantages and disadvantages of using NoSQL databases like MongoDB.
+
+24. **MongoDB Basics:**
+
+    -   Introduce MongoDB as a document-oriented NoSQL database.
+    -   Describe the BSON (Binary JSON) data format used in MongoDB.
+
+25. **Installation and Setup:**
+
+    -   Provide instructions for installing MongoDB and setting up a development environment.
+    -   Explain how to install and import the Mongoose library for Node.js.
+
+26. **CRUD Operations with MongoDB:**
+
+    -   Create, read, update, and delete documents in MongoDB.
+    -   Show how to use MongoDB shell commands and demonstrate CRUD operations in code.
+
+27. **Data Modeling and Schemas:**
+
+    -   Discuss the importance of data modeling in MongoDB.
+    -   Design schemas for MongoDB collections, including field types and document structure.
+
+28. **Mongoose Introduction:**
+
+    -   Introduce Mongoose as an Object Data Modeling (ODM) library for MongoDB.
+    -   Explain how Mongoose simplifies interactions with MongoDB by providing schema and model features.
+
+29. **Creating Models and Schemas with Mongoose:**
+
+    -   Define schemas using Mongoose's schema definition methods.
+    -   Show how to create models based on schemas for different collections.
+
+30. **Validation and Middleware:**
+
+    -   Explain the concept of validation in MongoDB and how to use Mongoose's built-in validators.
+    -   Discuss the use of middleware functions in Mongoose for pre and post document operations.
+
+31. **Querying MongoDB with Mongoose:**
+
+    -   Demonstrate how to query MongoDB data using Mongoose methods.
+    -   Construct queries for filtering, sorting, and projecting data.
+
+32. **Security and Authentication:**
+
+    -   Cover MongoDB's security features, including authentication and role-based access control.
+    -   Best practices for securing MongoDB deployments.
+
+33. **Transactions:**
+
+    -   Explain how to work with multi-document transactions in MongoDB.
+    -   Maintain data consistency in transactional operations.
+
+34. **Deployment and Operations:**
+
+    -   Provide guidance on deploying MongoDB in various environments, including on-premises and cloud-based solutions.
+    -   Monitor and maintain MongoDB clusters.
+
+35. **Best Practices and Real-World Scenarios:**
+
+    -   Best practices for MongoDB development, performance optimization, and schema design.
+    -   Real-world use cases and scenarios where MongoDB is a suitable choice.
+
 ## class recording
 
 <details>
 <summary>expand/collapse</summary>
 <br>
-
-### Week1
-
--   [Day 1](https://youtu.be/cnuxjssGk-I)
-
-### Week2
-
--   [Day 6](https://youtu.be/OJYuVNFrknU)
--   [Day 7](https://youtu.be/foN-pFrCSJE)
--   [Day 10](https://youtu.be/WwnA0GLXtTk)
 
 </details>
