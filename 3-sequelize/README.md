@@ -12,10 +12,10 @@ Welcome to a detailed guide on using Sequelize, a popular Object-Relational Mapp
 
 Sequelize offers several benefits when working with databases in Node.js applications:
 
--   Abstraction: It abstracts the underlying database, making it easier to work with databases without writing raw SQL queries.
--   Model-View-Controller (MVC): Sequelize helps you implement the MVC architecture by defining models, which correspond to database tables.
--   Validation: It provides built-in validation for your data, enhancing data integrity.
--   Relationships: Sequelize simplifies the definition and management of relationships between tables.
+- Abstraction: It abstracts the underlying database, making it easier to work with databases without writing raw SQL queries.
+- Model-View-Controller (MVC): Sequelize helps you implement the MVC architecture by defining models, which correspond to database tables.
+- Validation: It provides built-in validation for your data, enhancing data integrity.
+- Relationships: Sequelize simplifies the definition and management of relationships between tables.
 
 ## Getting Started
 
@@ -23,9 +23,9 @@ Sequelize offers several benefits when working with databases in Node.js applica
 
 Before you begin, ensure you have the following prerequisites in place:
 
--   Node.js and npm installed on your system.
--   A MySQL database server installed and running.
--   Basic knowledge of JavaScript and Express.
+- Node.js and npm installed on your system.
+- A MySQL database server installed and running.
+- Basic knowledge of JavaScript and Express.
 
 ### Installation
 
@@ -135,5 +135,3 @@ Create API routes that use your Sequelize models to read, write, update, and del
 ## Usage
 
 You can now start your Express application and access the API endpoints to interact with your MySQL database using Sequelize ORM. Make sure to handle error handling and validation in your routes for a robust application.
-
-
