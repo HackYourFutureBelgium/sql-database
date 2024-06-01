@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to a detailed guide on using Sequelize, a popular Object-Relational Mapping (ORM) library, with MySQL2 and Express in a Node.js application. This guide will take you through the process of setting up Sequelize, defining models, and creating an Express API that interacts with a MySQL database using Sequelize.
+Sequelize, a popular Object-Relational Mapping (ORM) library, with MySQL2 and Express in a Node.js application. This guide will take you through the process of setting up Sequelize, defining models, and creating an Express API that interacts with a MySQL database using Sequelize.
 
 ## What is Sequelize ORM?
 
