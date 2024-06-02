@@ -120,6 +120,6 @@ You will be prompted to enter the root password you set during installation. If 
 
 1. Click on the link [MySQL Workbench](https://dev.mysql.com/downloads/workbench/).
 
-2. choose your Os.
+2. choose your OS.
 
 3. Install MySQL Workbench.
