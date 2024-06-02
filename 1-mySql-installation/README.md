@@ -1,10 +1,12 @@
-# MySQL Installation Guide
+# MySQL Installation
 
 This guide provides step-by-step instructions on how to install MySQL on different operating systems: Mac, Ubuntu, and Windows.
 
-## Mac
+## My SQL
 
-### Using Homebrew
+### Mac
+
+#### Using Homebrew
 
 1. Open your Terminal.
 
@@ -26,7 +28,7 @@ This guide provides step-by-step instructions on how to install MySQL on differe
     brew services start mysql
     ```
 
-### Using MySQL Installer
+#### Using MySQL Installer
 
 1. Download the MySQL Community Server installer for macOS from the official website: [MySQL Downloads](https://dev.mysql.com/downloads/mysql/).
 
@@ -40,9 +42,9 @@ This guide provides step-by-step instructions on how to install MySQL on differe
     sudo mysql.server start
     ```
 
-## Ubuntu
+### Ubuntu
 
-### Using APT Package Manager
+#### Using APT Package Manager
 
 1. Open your Terminal.
 
@@ -66,7 +68,7 @@ This guide provides step-by-step instructions on how to install MySQL on differe
     sudo service mysql start
     ```
 
-### Using MySQL APT Repository
+#### Using MySQL APT Repository
 
 1. Visit the MySQL APT repository page: [MySQL APT Repository](https://dev.mysql.com/downloads/repo/apt/).
 
@@ -92,7 +94,7 @@ This guide provides step-by-step instructions on how to install MySQL on differe
     sudo service mysql start
     ```
 
-## Windows
+### Windows
 
 1. Download the MySQL Installer for Windows from the official website: [MySQL Downloads](https://dev.mysql.com/downloads/mysql/).
 
@@ -104,7 +106,7 @@ This guide provides step-by-step instructions on how to install MySQL on differe
 
 5. Once the installation is complete, start the MySQL service using the MySQL Command Line Client or MySQL Workbench.
 
-## Verification
+### Verification
 
 To verify that MySQL is installed and running, open your Terminal or Command Prompt and run the following command:
 
@@ -113,3 +115,11 @@ mysql -u root -p
 ```
 
 You will be prompted to enter the root password you set during installation. If MySQL is successfully running, you will be logged into the MySQL command-line interface.
+
+## My SQL workbench
+
+1. Click on the link [MySQL Workbench](https://dev.mysql.com/downloads/workbench/).
+
+2. chose your Os.
+
+3. Install MySQL Workbench.

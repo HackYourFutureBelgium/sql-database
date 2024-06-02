@@ -17,18 +17,6 @@ MySQL offers a range of features including:
 - Unicode support for multilingual applications.
 - Extensive community support and documentation.
 
-## Installation
-
-MySQL can be installed on various operating systems including Linux, Windows, and macOS. Installation methods may vary depending on the platform, but typically involve downloading the appropriate package or using package managers such as apt or yum.
-
-For example, to install MySQL on Ubuntu Linux, you can use the following command:
-
-```bash
-sudo apt-get install mysql-server
-```
-
-For detailed installation instructions, refer to the official MySQL documentation.
-
 ## Basic Concepts
 
 ### Databases and Tables
