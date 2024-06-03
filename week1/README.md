@@ -1,6 +1,61 @@
-# SQL
+# Week 1
 
-## Introduction
+> "Every hour, every day, digital databases quietly store, cross-reference, and return information on every aspect of our lives."
+
+https://www.computerhistory.org/revolution/memory-storage/8/265
+
+## Topics
+
+- [What is a database?](#what-is-a-database-1)
+- [SQL](#what-is-a-database-1)
+- TBD
+
+## What is a database? <sup>[1]</sup>
+
+A database's primary purpose is to provide a mechanism for storing and retrieving information. There are many different types of databases but they all provides these two capabilities.
+
+The easiest way to understand a database is as a collection of related files. Imagine a file (either paper or digital) of sales orders in a shop. Then there's another file of products, containing stock records. To fulfil an order, you'd need to look up the product in the order file and then look up and adjust the stock levels for that particular product in the product file. A database and the software that controls the database, called a database management system (DBMS), helps with this kind of task.
+
+Most databases today are **relational databases**, named such because they deal with tables of data related by a common field. For example, [Table 1](#table-1---products) below shows the product table, and [Table 2](#table-2---orders) shows the orders table. As you can see, the relation between the two tables is based on the common field product_code. Any two tables can relate to each other simply by having a field in common.
+
+#### Table 1 - Products
+| `product_code` | `description`       | `price` |
+|--------------|-------------------|-------|
+| A416         | nails, box        | €0.14 |
+| C923         | drawing pins, box | €0.08 |
+
+#### Table 2 - Orders
+| `order_code` | `order_item` | `product_code` | `quantity` |
+|--------------|--------------|--------------|----------|
+| 3804         | 1            | A416         | 10       |
+| 3804         | 2            | C923         | 15       |
+
+> [!IMPORTANT]
+> Any two tables can relate to each other simply by creating a field they have in common. Table 1 and Table 2 share the `product_code` column.
+
+Let's take a closer look at the previous two tables to see how they are organized:
+
+- Each table consists of many **rows** and **columns**.
+- Each new **row** contains data about one single entity (such as one product or one order line). This is also called a record. For example, the first row in Table 1 is a record; it describes the A416 product, which is a box of nails that costs fourteen cents. 
+> [!NOTE] 
+> The terms *row* and *record* are interchangeable.
+- Each **column** (also called an attribute) contains one piece of data that relates to the record, called a tuple. Examples of attributes are the quantity of an item sold (`quantity`) or the price of a product (`price`). An attribute, when referring to a database table, is called a field. For example, the data in the `description` column in Table 1 are fields. 
+
+> [!NOTE] 
+> The terms *column*, *attribute* and *field* are interchangeable.
+
+Given this kind of structure, the database gives you a way to manipulate this data: SQL. SQL (structured query language) is a powerful way to search for records or make changes. 
+
+Relational databases go hand-in-hand with the development of SQL. The simplicity of SQL - where even a novice can learn to perform basic queries in a short period of time - is a large part of the reason for the popularity of the relational model.
+
+Almost all DBMSs use SQL, although many have added their own enhancements to it. This means that when you learn using a specific DBMS like MySQL, almost all of it is not specific to MySQL and can be used with other relational databases as well, such as PostgreSQL, SQLite, MariaDB, and SQL Server. 
+
+> [!TIP]
+> SQL is pronounced "sequel"
+
+There are many other types of databases besides relational databases, such as graph databases, non-relational databases (also called NoSQL databases), and key-value databases. In this module, we'll focus on relational databases (SQL), using MySQL for the exercises.
+
+## SQL
 
 SQL (Structured Query Language) is a standard programming language designed for managing and manipulating relational databases. It provides a powerful set of commands for querying, updating, and managing data stored in a relational database management system (RDBMS). This comprehensive guide aims to provide a detailed understanding of SQL, covering its syntax, data manipulation capabilities, data definition commands, advanced querying techniques, and more.
 
@@ -267,3 +322,8 @@ Example (using parameterized query):
 ```sql
 SELECT * FROM users WHERE username = ? AND password = ?;
 ```
+
+
+## References
+
+[1] Adapted from MariaDB's ["Introduction to Relational Databases"](https://mariadb.com/kb/en/introduction-to-relational-databases/)

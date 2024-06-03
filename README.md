@@ -1,104 +1,39 @@
-# SQL
+> [!WARNING]
+> This module is under development
 
-## Introduction
+# sql-database
 
-In the world of data management and database systems, SQL (Structured Query Language) is fundamental technology that plays a crucial role. SQL is a standardized programming language used for managing and querying relational databases, while MySQL is one of the most popular open-source relational database management systems that can be used with various programming languages. In this comprehensive README, we will delve into the world of SQL and MySQL, exploring their importance, usage, and key concepts.
+[WIP] Databases module of HackYourFuture Belgium's Sunday classes, 2024 edition
 
-- [Learning Objectives](#learning-objectives): what you can expect to learn from studying this material
-- [Suggested Study](./suggested-study.md): Helpful links for this module, useful but not required.
+In the world of data management and database systems, SQL (Structured Query Language) is fundamental technology that plays a crucial role. SQL is a standardized programming language used for managing and querying relational databases, while MySQL is one of the most popular open-source relational database management systems that can be used with various programming languages. 
 
-## Learning Objectives
+In this module, we will delve into the world of SQL and MySQL, exploring their importance, usage, and key concepts.
 
-### SQL (Structured Query Language)
+### Repository content
 
-#### 1. What is SQL?
+This modules is planned for 3 weeks. For each week, you will see:
 
-- An introduction to SQL and its significance in data management.
+1. `README.md`: the theory to cover this week. This is where you should start. Some of the content may link to external resources
+1. `EXERCISES.md`: the instructions for each week's assignment
+1. `LESSONPLAN.md`: this document is meant for mentors as a reference
 
-#### 2. Relational Databases
+## Learning goals
 
-- Understanding the concept of relational databases and their structure.
+In this module, you will learn the fundamentals of Databases, with a focus relational databases (SQL). By the end of it, you'll be comfortable with:
 
-#### 3. SQL Syntax
+- What a database is and its role is an application
+- How to work with `Structured Query Language` (SQL)
+- How to design a simple relational model and create its SQL representation
+- Hands on experience with `MySQL`, as an example of a relational database system
 
-- A deep dive into SQL syntax, including statements for data manipulation, retrieval, and definition.
+### How to study
 
-#### 4. CRUD Operations
+TODO
 
-- Learning how to perform Create, Read, Update, and Delete (CRUD) operations using SQL.
+## Agenda
 
-#### 5. Data Modeling
-
-- Exploring the process of designing and implementing a database schema.
-
-#### 6. Joins and Relationships
-
-- Understanding how to work with multiple tables and establish relationships between them.
-
-#### 7. Optimization
-
-- Techniques for optimizing SQL queries and improving database performance.
-
-#### 8. Transactions
-
-- Handling transactions.
-
-### MySQL
-
-#### 9. Introduction to MySQL
-
-- An overview of MySQL as a popular relational database management system.
-
-#### 10. Installing MySQL
-
-- Guidance on installing MySQL on various platforms and managing its configuration.
-
-#### 11. Creating and Managing Databases
-
-- Exploring the process of creating databases and managing their structure in MySQL.
-
-#### 12. Data Types and Constraints
-
-- Understanding data types and constraints in MySQL for effective data modeling.
-
-#### 13. Querying Data
-
-- Writing SQL queries to retrieve, filter, and manipulate data stored in MySQL databases.
-
-#### 14. Managing Users and Security
-
-- Securing MySQL databases, managing user accounts, and setting up access controls.
-
-#### 15. Performance Optimization
-
-- Techniques for optimizing the performance of MySQL databases, including indexing and query tuning.
-
-#### 16. Backup and Recovery
-
-- Strategies for backing up and restoring MySQL databases to prevent data loss.
-
-### Sequelize ORM
-
-#### 17. Introduction to Sequelize ORM
-
-- Understanding Sequelize ORM as a JavaScript-based tool for interacting with databases.
-
-#### 18. Model Definition and Associations
-
-- Defining models and establishing associations between them using Sequelize.
-
-#### 19. Querying Data with Sequelize
-
-- Writing queries and using Sequelize methods to interact with databases.
-
-#### 20. Migrations and Seed Data
-
-- Managing database migrations and seeding initial data using Sequelize.
-
-#### 21. Validations and Middleware
-
-- Implementing data validation and middleware in Sequelize models.
-
-#### 22. Advanced Topics
-
-- Exploring advanced topics and techniques in Sequelize ORM.
+| Week | Topics                                                                                                    | Readings | Exercises | Lesson Plan |
+|------|-----------------------------------------------------------------------------------------------------------|----------|-----------|-------------|
+| 1    | - Introduction to Databases <br> - Introduction to the relational model <br> - Introduction to SQL: retrieving data | [Week 1 Readings](./week1/README.md)     | [Week 1 Exercises](./week1/EXERCISES.md)      | [Week 1 Lessonplan](./week1/LESSONPLAN.md)        |
+| 2    | - Introduction to Domain Modeling <br> - Implementation of a domain: identifiers, constraints, relationships   | TODO     | TODO      | TODO        |
+| 3    | - [To be defined, more advanced topics]                                                                   | TODO     | TODO      | TODO        |
