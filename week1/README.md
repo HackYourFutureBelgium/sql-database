@@ -124,9 +124,6 @@ Suppose we are only interested in two of the columns. We can select individual c
 ```SQL
 SELECT column1, column2 
 FROM table_name;
-
--- same as 
-SELECT column1, column2 FROM table_name;
 ```
 
 To make it easier to read, we moved FROM to another line.
@@ -137,6 +134,15 @@ Let’s only select the name and district columns of the table:
 
 ```sql
 SELECT name, district FROM city;
+
+-- +----------------+---------------+
+-- | name           | district      |
+-- +----------------+---------------+
+-- | Kabul          | Kabol         |
+-- | Qandahar       | Qandahar      |
+-- | Herat          | Herat         |
+-- (...)
+-- 4079 rows in set
 ```
 
 Now we want to include a third column.
@@ -294,9 +300,9 @@ SELECT DISTINCT district from city;
 -- (...)
 -- 4079 rows in set
 ```
-</details><br>
+</details>
  
-### Where
+### `WHERE`
 
 We can restrict our query results using the `WHERE` clause in order to obtain only the information we want.
 
@@ -473,7 +479,7 @@ Let's go over to the `country` table for a while.
 This table has more columns, and some records contain a few missing values. More often than not, the data you encounter will have missing values.
 
 - Unknown values are indicated by `NULL`.
-- It is not possible to test for NULL values with comparison operators, such as `=` and `!=`.
+- It is not possible to test for `NULL` values with comparison operators, such as `=` and `!=`.
 - Instead, we will have to use these operators:
     - `IS NULL`
     - `IS NOT NULL`
