@@ -331,7 +331,7 @@ The `>` is an operator. Operators create a condition that can be evaluated as ei
 Comparison operators used with the `WHERE` clause are:
 
 - `=` equal to
-- `!=` not equal to
+- `<>` or `!=` not equal to
 - `>` greater than
 - `<` less than
 - `>=` greater than or equal to
@@ -471,7 +471,7 @@ SELECT * FROM city WHERE name LIKE '%New ';
 ```
 </details><br>
 
-## Null
+### Null
 
 Let's go over to the `country` table for a while.
 
@@ -735,7 +735,7 @@ LIMIT 10;
 
 - Here, we specify that the result set can’t have more than 10 rows.
 
-- `LIMIT` always goes at the very end of the query. Also, it is not supported in all SQL databases.
+- `LIMIT` always goes at the very end of the query
 
 Your turn! Combining your knowledge of `LIMIT` and `ORDER BY`, write a query that returns the top 3 highest populated cities.
 

@@ -55,7 +55,7 @@ Once you're sure you have the right query, add them to a file `databases-week1-e
 
 ### Bonus
 
-For these questions, you need to learn other SQL topics. Take a look at the Cheat Sheet or ask your Coach for help!
+For these questions, you need to learn other SQL topics. Take a look at the Cheat Sheet (TODO) or ask your Coach for help!
 
 1. What is the total population of the world?
 1. What is the average population of countries in Europe?
