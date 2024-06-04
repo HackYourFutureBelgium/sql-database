@@ -347,7 +347,6 @@ SELECT ...
 ```
 
 <details>
-
 <summary>View solution</summary>
 
 ```sql
@@ -369,7 +368,7 @@ SELECT * FROM city WHERE population < 1000;
 > SELECT x, y FROM coordinates WHERE x > y;
 > ```
 
-### Like
+### `LIKE`
 
 `LIKE` can be a useful operator when you want to compare similar values.
 
@@ -639,6 +638,7 @@ It's your turn! Write a query that returns all cities in either Finland (`FIN`) 
 SELECT ...
 ```
 
+<details>
 <summary>View solution</summary>
 
 ```sql
@@ -702,6 +702,7 @@ Your turn! Write a query that retrieves the `name` and `population` columns of a
 SELECT ...
 ```
 
+<details>
 <summary>View solution</summary>
 
 ```sql
@@ -743,6 +744,7 @@ Your turn! Combining your knowledge of `LIMIT` and `ORDER BY`, write a query tha
 SELECT ...
 ```
 
+<details>
 <summary>View solution</summary>
 
 ```sql
@@ -781,6 +783,7 @@ Feel free to experiment a bit more with the `world` database before moving on!
 
 > [!WARNING]
 > Section below to review
+
 ## Basic SQL Commands
 
 ### SELECT Statement
