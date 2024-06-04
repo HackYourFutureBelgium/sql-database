@@ -7,10 +7,11 @@ https://www.computerhistory.org/revolution/memory-storage/8/265
 ## Topics
 
 - [What is a database?](#what-is-a-database-1)
-- [SQL](#what-is-a-database-1)
+- [Querying data with SQL](#querying-data-with-sql2)
+- [SQL Cheat Sheet?](#basic-sql-commands)
 - TBD
 
-## What is a database? <sup>[1]</sup>
+## What is a database? <sup>[[1]](#references)</sup>
 
 A database's primary purpose is to provide a mechanism for storing and retrieving information. There are many different types of databases but they all provides these two capabilities.
 
@@ -59,6 +60,721 @@ There are many other types of databases besides relational databases, such as gr
 
 SQL (Structured Query Language) is a standard programming language designed for managing and manipulating relational databases. It provides a powerful set of commands for querying, updating, and managing data stored in a relational database management system (RDBMS). This comprehensive guide aims to provide a detailed understanding of SQL, covering its syntax, data manipulation capabilities, data definition commands, advanced querying techniques, and more.
 
+> [!IMPORTANT]
+> Make sure you MySQL installed in your computer. If you haven't, follow the [MySQL installation guide](../setup/README.md) before continuing.
+
+### Setup
+
+In this lesson we'll be using an example `world` database.
+
+To install the sample database, follow these steps:
+
+1. Assuming you are in the repository's root directory, run the following in a terminal:
+
+```shell
+$ mysql -u "root" -p < "week1/databases/world.sql" # enter your password when asked
+```
+
+This will connect to your MySQL server and execute the `world.sql` script.
+
+2. Connect again to the MySQL server to confirm the `world` database is installed correctly. 
+
+```shell
+$ mysql -u "root" -p # enter your password when asked
+
+mysql> USE world;
+mysql> SHOW TABLES;
+```
+
+You should see an output similar to the following:
+
+```
++-----------------+
+| Tables_in_world |
++-----------------+
+| city            |
+| country         |
+| countrylanguage |
++-----------------+
+3 rows in set (0.00 sec)
+```
+
+## Querying Data with SQL<sup>[[2]](#references)</sup>
+
+In this lesson, we will be learning different SQL commands to query a table in a database.
+
+One of the core purposes of the SQL language is to retrieve information stored in a database. This is commonly referred to as querying. Queries allow us to communicate with the database by asking questions and returning a result set with data relevant to the question.
+
+We will be querying the `world` [<sup>[3]</sup>](#references) database.
+
+Let’s get started! We should get acquainted with the `city` table.
+
+If you haven't, [connect to your MySQL server](#setup), and then type the following:
+
+```sql
+mysql> SELECT * FROM city;
+```
+
+### SELECT
+
+`SELECT` is used every time you want to query data from a database and `*` means all columns.
+
+Suppose we are only interested in two of the columns. We can select individual columns by their names (separated by a comma):
+
+```SQL
+SELECT column1, column2 
+FROM table_name;
+
+-- same as 
+SELECT column1, column2 FROM table_name;
+```
+
+To make it easier to read, we moved FROM to another line.
+
+Line breaks don’t mean anything specific in SQL. We could write this entire query in one line, and it would run just fine.
+
+Let’s only select the name and district columns of the table:
+
+```sql
+SELECT name, district FROM city;
+```
+
+Now we want to include a third column.
+
+Edit your query so that it returns the name, district, and population columns of the table.
+
+```sql
+-- Edit the query
+SELECT ...
+```
+
+<details>
+<summary>View solution</summary>
+
+```sql
+SELECT name, district, population FROM city;
+
+-- +----------------+---------------+------------+
+-- | name           | district      | population |
+-- +----------------+---------------+------------+
+-- | Kabul          | Kabol         |    1780000 |
+-- | Qandahar       | Qandahar      |     237500 |
+-- | Herat          | Herat         |     186800 |
+-- (...)
+-- 4079 rows in set
+```
+</details>
+
+### AS
+
+Knowing how `SELECT` works, suppose we have the code below:
+
+```sql
+SELECT name AS 'City Name' FROM city;
+```
+
+Can you guess what `AS` does?
+
+`AS` is a keyword in SQL that allows you to rename a column or table using an alias. The new name can be anything you want. Here we renamed the name column as `City Name`.
+
+
+> [!IMPORTANT]
+> When using `AS`, the columns are not being renamed in the table. The aliases only appear in the result.
+
+To experiment with what the `AS` keyword does, select the population column and rename it with an alias of your choosing:
+
+```sql
+-- Return population column with an alias
+SELECT ___ AS '______' FROM city;
+```
+
+<details>
+<summary>View solution</summary>
+
+```sql
+--- Example
+SELECT population as 'Number of Habitants' FROM city;
+```
+</details>
+
+<br>
+
+Now, edit the query so that instead of selecting and renaming `population`, select the `countrycode` column and rename it to `ISO Country Code`
+
+```sql
+-- Return countrycode column with an alias
+SELECT ___ AS '______' FROM city;
+```
+
+<details>
+<summary>View solution</summary>
+
+```sql
+SELECT countrycode as 'ISO Country Code' FROM city;
+
+-- +------------------+
+-- | ISO Country Code |
+-- +------------------+
+-- | ABW              |
+-- | AFG              |
+-- (...)
+-- 4079 rows in set
+
+```
+</details><br>
+
+> [!TIP]
+> You can alias multiple columns in a single query:
+> ```sql 
+> SELECT name AS n, countrycode AS c FROM city;
+> ```
+
+### Distinct
+
+When we are examining data in a table, it can be helpful to know what distinct values exist in a particular column.
+
+`DISTINCT` is used to return unique values in the output. It filters out all duplicate values in the specified column(s).
+
+For instance,
+
+```sql
+SELECT tools FROM inventory;
+```
+
+might produce:
+
+| tools  |
+|--------|
+| Hammer |
+| Nails  |
+| Nails  |
+| Nails  |
+
+By adding `DISTINCT` before the column name,
+
+```sql
+SELECT DISTINCT tools FROM inventory;
+```
+
+the result would now be:
+
+| tools  |
+|--------|
+| Hammer |
+| Nails  |
+
+Filtering the results of a query is an important skill in SQL. It is easier to see the different countries in the `city` table after the data has been filtered than to scan every row in the table.
+
+Let's try it out:
+
+```sql
+SELECT DISTINCT countrycode from city;
+```
+
+Now, change the code so we return the unique values of the `district` column instead.
+
+```sql
+-- Return the unique values of the `district` column
+SELECT ...
+```
+
+<details>
+
+<summary>View solution</summary>
+
+```sql
+SELECT DISTINCT district from city;
+
+-- +---------------+
+-- | district      |
+-- +---------------+
+-- | Kabol         |
+-- | Qandahar      |
+-- | Herat         |
+-- (...)
+-- 4079 rows in set
+```
+</details><br>
+ 
+### Where
+
+We can restrict our query results using the `WHERE` clause in order to obtain only the information we want.
+
+Following this format, the statement below filters the result set to only include the most populated cities (over 5 million habitants):
+
+```sql
+SELECT * FROM city WHERE population > 5000000;
+
+-- +------+----------------+-------------+----------------+------------+
+-- | ID   | Name           | CountryCode | District       | Population |
+-- +------+----------------+-------------+----------------+------------+
+-- |  206 | São Paulo      | BRA         | São Paulo      |    9968485 |
+-- |  207 | Rio de Janeiro | BRA         | Rio de Janeiro |    5598953 |
+-- (...)
+-- 24 rows in set
+```
+
+How does it work?
+
+1. The `WHERE` clause filters the result set to only include rows where the following condition is true.
+
+1. `population > 5000000` is the condition. Here, only rows with a value greater than 5000000 in the `population` column will be returned.
+
+The `>` is an operator. Operators create a condition that can be evaluated as either *true* or *false*.
+
+Comparison operators used with the `WHERE` clause are:
+
+- `=` equal to
+- `!=` not equal to
+- `>` greater than
+- `<` less than
+- `>=` greater than or equal to
+- `<=` less than or equal to
+
+There are also some special operators that we will learn more about in the upcoming exercises.
+
+Now, suppose we want to known which are the *least* populated cities (population under 1000):
+
+```sql
+-- Retrieve the cities with less than 1000 people. Select all columns
+SELECT ...
+```
+
+<details>
+
+<summary>View solution</summary>
+
+```sql
+SELECT * FROM city WHERE population < 1000;
+
+-- +------+---------------------+-------------+-------------+------------+
+-- | ID   | Name                | CountryCode | District    | Population |
+-- +------+---------------------+-------------+-------------+------------+
+-- |   61 | South Hill          | AIA         | –           |        961 |
+-- |   62 | The Valley          | AIA         | –           |        595 |
+-- | 1791 | Flying Fish Cove    | CXR         | –           |        700 |
+-- (...)
+-- 11 rows in set
+```
+</details><br>
+
+> [!TIP] You can compare the values of two columns in a `WHERE` clause:
+> ```sql
+> SELECT x, y FROM coordinates WHERE x > y;
+> ```
+
+### Like
+
+`LIKE` can be a useful operator when you want to compare similar values.
+
+There are 2 cities in China with similar names: `Anshun` and `Anshan`.
+
+How could we select all cities that start with ‘Ansh’ and end with ‘n’ and have exactly one character in between?
+
+```sql
+SELECT * FROM city WHERE name LIKE 'Ansh_n';
+
+-- +------+--------+-------------+----------+------------+
+-- | ID   | Name   | CountryCode | District | Population |
+-- +------+--------+-------------+----------+------------+
+-- | 1918 | Anshan | CHN         | Liaoning |    1200000 |
+-- | 2106 | Anshun | CHN         | Guizhou  |     174142 |
+-- +------+--------+-------------+----------+------------+
+```
+
+- `LIKE` is a special operator used with the `WHERE` clause to search for a specific pattern in a column.
+
+- `name LIKE 'Se_en'` is a condition evaluating the name column for a specific pattern.
+
+- `Ansh_n` represents a pattern with a wildcard character.
+
+The `_` means you can substitute any individual character here without breaking the pattern. The names `Anshan` and `Anshun` both match this pattern.
+
+#### Percentage wildcard - `%`
+
+The percentage sign `%` is another wildcard character that can be used with `LIKE`.
+
+This statement below filters the result set to only include cities with names that begin with the word ‘San’:
+
+```sql
+SELECT * 
+FROM city
+WHERE name LIKE 'San%';
+```
+
+`%` is a wildcard character that matches zero or more missing characters in the pattern. For example:
+
+- `A%` matches all cities with names that begin with letter ‘A’
+- `%a` matches all cities that end with ‘a’
+- `San %` matches all cities with names that begin with the word `San` (mind the whitespace!)
+    - ✅ `San Felipe`, `San Francisco`, `San Marino`...
+    - ❌ `Santa Monica`
+- `%land` matches all cities with names that end with `land`
+    - `Sunderland`, `Auckland`, `Portland`...
+
+
+We can also use `%` both before and after a pattern:
+
+```sql
+SELECT * FROM city WHERE name LIKE '%los%';
+
+-- +------+----------------------------+-------------+--------------+------------+
+-- | ID   | Name                       | CountryCode | District     | Population |
+-- +------+----------------------------+-------------+--------------+------------+
+-- |  117 | San Nicolás de los Arroyos | ARG         | Buenos Aires |     119302 |
+-- |  316 | São Carlos                 | BRA         | São Paulo    |     187122 |
+-- |  357 | Ferraz de Vasconcelos      | BRA         | São Paulo    |     139283 |
+-- |  568 | Los Angeles                | CHL         | Bíobío       |     158215 |
+-- (...)
+```
+
+Here, any city that contains the word ‘los’ in its name will be returned in the result.
+
+`LIKE` is not case sensitive. ‘Los Angelos’ and ‘São Carlos’ both appear in the result of the query above.
+
+How many cities contain the word `saint`?
+
+```sql
+-- Return the cities with names that contain the word 'saint'
+SELECT ...
+```
+
+<details>
+
+<summary>View solution</summary>
+
+```sql
+SELECT * FROM city WHERE name LIKE '%saint%';
+-- Answer: 13 cities
+```
+</details><br>
+
+One more: how many cities *begin* with the word `New`? Tip: you may need a space in there.
+
+```sql
+-- Return the cities with names that start with the word 'New'
+SELECT ...
+```
+
+<details>
+
+<summary>View solution</summary>
+
+```sql
+SELECT * FROM city WHERE name LIKE '%New ';
+-- Answer: 6 cities
+```
+</details><br>
+
+## Null
+
+Let's go over to the `country` table for a while.
+
+This table has more columns, and some records contain a few missing values. More often than not, the data you encounter will have missing values.
+
+- Unknown values are indicated by `NULL`.
+- It is not possible to test for NULL values with comparison operators, such as `=` and `!=`.
+- Instead, we will have to use these operators:
+    - `IS NULL`
+    - `IS NOT NULL`
+
+For example, we can use `IS NOT NULL` to retrieve countries for which an independence year is registered (`indepyear` column):
+
+```sql
+SELECT name, indepyear FROM country WHERE indepyear IS NOT NULL
+
+-- +----------------------+-----------+
+-- | name                 | indepyear |
+-- +----------------------+-----------+
+-- | Afghanistan          |      1919 |
+-- | Angola               |      1975 |
+-- | Albania              |      1912 |
+-- (...)
+```
+
+Now let’s do the opposite. Write a query to find all countries for which there is no independence day registered:
+
+```sql
+-- Retrive countries without an independence. Select only the 'name' column
+SELECT ...
+```
+
+<details>
+
+<summary>View solution</summary>
+
+```sql
+SELECT name FROM country WHERE indepyear IS NULL;
+
+-- +----------+
+-- | name     |
+-- +----------+
+-- | Aruba    |
+-- | Anguilla |
+-- (...)
+```
+</details>
+
+### `AND`
+
+Sometimes we want to combine multiple conditions in a `WHERE` clause to make the result set more specific and useful.
+
+One way of doing this is to use the `AND` operator. Here, we use the `AND` operator to only return European countries with over 1 million of population:
+
+```sql
+SELECT * 
+FROM country
+WHERE continent = 'Europe'
+AND population > 1000000;
+
+-- other columns ommited
+-- +---------+------------+
+-- | name    | population |
+-- +---------+------------+
+-- | Albania |    3401200 |
+-- | Austria |    8091800 |
+-- | Belgium |   10239000 |
+-- (...)
+-- 35 rows in set
+```
+
+- `continent = 'Europe'` is the 1st condition
+- `population > 1000000` is the 2nd condition
+- `AND` combines the 2 conditions
+
+![and condition](image.png)
+
+With `AND`, both conditions must be true for the row to be included in the result.
+
+Now, let's go back to the `city` table and practice! Retrieve every city from the United States (hint: also known as `USA`), that have few inhabitants (less than 90 thousand):
+
+```sql
+-- Retrieve cities in the USA with less than 90 thousand of population
+SELECT ...
+```
+
+<details>
+
+<summary>View solution</summary>
+
+```sql
+SELECT * FROM city WHERE countrycode = 'USA' AND population < 90000;
+
+-- +------+------------+-------------+----------------+------------+
+-- | ID   | Name       | CountryCode | District       | Population |
+-- +------+------------+-------------+----------------+------------+
+-- | 4062 | Kenosha    | USA         | Wisconsin      |      89447 |
+-- | 4063 | Elgin      | USA         | Illinois       |      89408 |
+-- (...)
+-- 5 rows in set
+```
+</details><br>
+
+Finally, how many German cities in district of 'Nordrhein-Westfalen' have over 250 thounsad inhabitants?
+
+```sql
+-- Retrieve cities in the district of Nordrhein-Westfalen with more than 250000 of population
+SELECT ...
+```
+
+<details>
+
+<summary>View solution</summary>
+
+```sql
+SELECT * from city where district  = 'Nordrhein-Westfalen' and population > 250000;
+
+-- +------+-------------+-------------+---------------------+------------+
+-- | ID   | Name        | CountryCode | District            | Population |
+-- +------+-------------+-------------+---------------------+------------+
+-- | 3071 | Köln        | DEU         | Nordrhein-Westfalen |     962507 |
+-- | 3073 | Essen       | DEU         | Nordrhein-Westfalen |     599515 |
+-- (...)
+-- 12 rows in set
+```
+</details><br>
+
+### `OR`
+
+Similar to `AND`, the `OR` operator can also be used to combine multiple conditions in `WHERE`, but there is a fundamental difference:
+
+- `AND` operator displays a row if *all* the conditions are true.
+- `OR` operator displays a row if *any* condition is true.
+
+Suppose you're considering a vacation either in Portugal or Spain:
+
+```sql
+SELECT * 
+FROM city
+WHERE countrycode = 'PRT' OR countrycode = 'ESP';
+
+-- +-----+---------+-------------+----------+------------+
+-- | ID  | Name    | CountryCode | District | Population |
+-- +-----+---------+-------------+----------+------------+
+-- | 653 | Madrid  | ESP         | Madrid   |    2879052 |
+-- (...)
+-- | 2914 | Lisboa | PRT         | Lisboa   |     563210 |
+-- (...)
+-- 64 rows in set
+```
+
+- `contrycode = 'PRT'` is the 1st condition
+- `contrycode = 'ESP'` is the 2nd condition
+- `OR` combines the two conditions
+
+![or condition](image-1.png)
+
+With `OR`, if any of the conditions are true, then the row is added to the result.
+
+It's your turn! Write a query that returns all cities in either Finland (`FIN`) or Norway (`NOR`)
+
+```sql
+-- Retrive cities in either Finland or Norway
+SELECT ...
+```
+
+<summary>View solution</summary>
+
+```sql
+SELECT * FROM city WHERE countrycode  = 'FIN' OR countrycode = 'NOR';
+
+-- +------+------------------------+-------------+----------+------------+
+-- | ID   | Name                   | CountryCode | District | Population |
+-- +------+------------------------+-------------+----------+------------+
+-- | 3236 | Helsinki [Helsingfors] | FIN         | Newmaa   |     555474 |
+-- (...)
+-- | 2807 | Oslo                   | NOR         | Oslo     |     508726 |
+-- (...)
+-- 12 rows in set
+```
+</details><br>
+
+### `ORDER BY`
+
+It is often useful to list the data in our result set in a particular order.
+
+We can sort the results using `ORDER BY`, either alphabetically or numerically. Sorting the results often makes the data more useful and easier to analyze.
+
+For example, if we want to sort everything by the cities' name from A through Z:
+
+```sql
+SELECT * FROM city ORDER BY name;
+```
+
+- `ORDER BY` is a clause that indicates you want to sort the result set by a particular column.
+- `name` is the specified column.
+
+Sometimes we want to sort things in a decreasing order. For example, if we want to select cities with a large population, sorted from highest to lowest:
+
+```sql
+SELECT * 
+FROM city 
+WHERE population > 9000000 
+ORDER BY population DESC;
+
+-- +------+-----------------+-------------+--------------+------------+
+-- | ID   | Name            | CountryCode | District     | Population |
+-- +------+-----------------+-------------+--------------+------------+
+-- | 1024 | Mumbai (Bombay) | IND         | Maharashtra  |   10500000 |
+-- | 2331 | Seoul           | KOR         | Seoul        |    9981619 |
+-- (...)
+-- 6 rows in set
+```
+
+- `DESC` is a keyword used in `ORDER BY` to sort the results in `descending` order (high to low or Z-A).
+
+- `ASC` is a keyword used in `ORDER BY` to sort the results in ascending order (low to high or A-Z).
+
+The column that we `ORDER BY` doesn’t even have to be one of the columns that we’re displaying.
+
+Note: `ORDER BY` always goes after `WHERE` (if `WHERE` is present).
+
+Your turn! Write a query that retrieves the `name` and `population` columns of all cities, ordered by their name in *descending* alphabetical order.
+
+```sql
+-- Retrieve cities in descending alphabetical order by name. Retrieve `name` and `population`
+SELECT ...
+```
+
+<summary>View solution</summary>
+
+```sql
+SELECT name, population FROM city ORDER BY name DESC;
+
+-- +---------+------------+
+-- | name    | population |
+-- +---------+------------+
+-- | Zytomyr |     297000 |
+-- | Zwolle  |     105819 |
+-- | Zwickau |     104146 |
+-- (...)
+-- 4079 rows in set
+```
+</details>
+
+### `LIMIT`
+
+You may have noticed that the `city` table contains thousands of records. Sometimes, it's useful to cap the numbers of rows in query results, to reduce noise.
+
+For example, imagine that we just want to see a few examples of records:
+
+```sql
+SELECT *
+FROM city
+LIMIT 10;
+```
+
+- `LIMIT` is a clause that lets you specify the maximum number of rows the result set will have. This saves space on our screen and makes our queries run faster.
+
+- Here, we specify that the result set can’t have more than 10 rows.
+
+- `LIMIT` always goes at the very end of the query. Also, it is not supported in all SQL databases.
+
+Your turn! Combining your knowledge of `LIMIT` and `ORDER BY`, write a query that returns the top 3 highest populated cities.
+
+```sql
+-- Retrive the 3 most populated cities. Select all columns
+SELECT ...
+```
+
+<summary>View solution</summary>
+
+```sql
+SELECT * FROM city ORDER by population DESC LIMIT 3;
+
+-- +------+-----------------+-------------+-------------+------------+
+-- | ID   | Name            | CountryCode | District    | Population |
+-- +------+-----------------+-------------+-------------+------------+
+-- | 1024 | Mumbai (Bombay) | IND         | Maharashtra |   10500000 |
+-- | 2331 | Seoul           | KOR         | Seoul       |    9981619 |
+-- |  206 | São Paulo       | BRA         | São Paulo   |    9968485 |
+-- +------+-----------------+-------------+-------------+------------+
+-- 3 rows in set
+```
+</details>
+
+> [!TIP] If the number set in the `LIMIT` clause surpasses the number of rows available to select, then it will just return the rows that are present.
+
+### Summary
+
+We just learned how to query data from a database using SQL using real life `world` data. We also learned how to filter queries to make the information more specific and useful.
+
+In summary:
+
+- `SELECT` is the clause we use every time we want to query information from a database.
+- `AS` renames a column or table.
+- `DISTINCT` return unique values.
+- `WHERE` is a popular command that lets you filter the results of the query based on conditions that you specify.
+- `LIKE` is a special operator that accepts wildcards ( for example `%s`, and `_`).
+- `AND` and `OR` combines multiple conditions.
+- `ORDER BY` sorts the result.
+- `LIMIT` specifies the maximum number of rows that the query will return.
+
+Feel free to experiment a bit more with the `world` database before moving on!
+
+
+> [!WARNING]
+> Section below to review
 ## Basic SQL Commands
 
 ### SELECT Statement
@@ -327,3 +1043,7 @@ SELECT * FROM users WHERE username = ? AND password = ?;
 ## References
 
 [1] Adapted from MariaDB's ["Introduction to Relational Databases"](https://mariadb.com/kb/en/introduction-to-relational-databases/)
+
+[2] Adapted from Codecademy's ["Learn SQL"](https://www.codecademy.com/enrolled/courses/learn-sql) course
+
+[3] Sample `world` database from [MySQL / Oracle](https://dev.mysql.com/doc/world-setup/en/)
