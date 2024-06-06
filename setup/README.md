@@ -12,24 +12,24 @@ This guide provides step-by-step instructions on how to install MySQL on differe
 
 2. Install Homebrew if you haven't already:
 
-```bash
+```shell
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 3. Install MySQL using Homebrew:
 
-```bash
+```shell
 $ brew install mysql
 ```
 
 4. Start MySQL service:
 
-```bash
+```shell
 $ brew services start mysql
 ```
 
 > [!TIP]
-> If you install MySQL by Homebrew, the default username is `root`, and there is no password.
+> If you install MySQL via Homebrew, the default username is `root`, and there is no password.
 
 ### Ubuntu
 
@@ -39,13 +39,13 @@ $ brew services start mysql
 
 2. Update the package list:
 
-```bash
+```shell
 $ sudo apt update
 ```
 
 3. Install MySQL Server:
 
-```bash
+```shell
 sudo apt install mysql-server
 ```
 
@@ -53,7 +53,7 @@ sudo apt install mysql-server
 
 5. Start the MySQL service:
 
-```bash
+```shell
 sudo service mysql start
 ```
 
@@ -65,13 +65,13 @@ sudo service mysql start
 
 3. Update the package list:
 
-```bash
+```shell
 $ sudo apt update
 ```
 
 4. Install MySQL Server:
 
-```bash
+```shell
 $ sudo apt install mysql-server
 ```
 
@@ -79,7 +79,7 @@ $ sudo apt install mysql-server
 
 6. Start the MySQL service:
 
-```bash
+```shell
 $ sudo service mysql start
 ```
 
@@ -102,7 +102,7 @@ $ sudo service mysql start
 
 To verify that MySQL is installed and running, open your Terminal or Command Prompt and run the following command:
 
-```bash
+```shell
 $ mysql -u root -p
 ```
 
@@ -124,18 +124,18 @@ DBeaver is a free, open source SQL client that works on macOS, Linux, and Window
 
 1. Add DBeaver to your list of repositories
 
-```bash
+```shell
 $ sudo add-apt-repository ppa:serge-rider/dbeaver-ce
 ```
 
 2. Update your package list
 
-```bash
+```shell
 $ sudo apt-get update
 ```
 
 3. Install DBeaver
 
-```bash
+```shell
 $ sudo apt-get install dbeaver-ce
 ```
