@@ -590,7 +590,7 @@ AND population > 1000000;
 - `population > 1000000` is the 2nd condition
 - `AND` combines the 2 conditions
 
-![and condition](image.png)
+<img src="./images/image.png" alt="and condition" width="66%"/>
 
 With `AND`, both conditions must be true for the row to be included in the result.
 
@@ -670,7 +670,7 @@ WHERE countrycode = 'PRT' OR countrycode = 'ESP';
 - `contrycode = 'ESP'` is the 2nd condition
 - `OR` combines the two conditions
 
-![or condition](image-1.png)
+<img src="./images/image-1.png" alt="or condition" width="66%"/>
 
 With `OR`, if any of the conditions are true, then the row is added to the result.
 
