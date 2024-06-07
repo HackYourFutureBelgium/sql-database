@@ -52,6 +52,7 @@ Once you're sure you have the right query, add them to a file `databases-week1-e
 1. What countries have *official* languages spoken between 1% and 10% of the population?
 1. What languages are spoken by over 90% of the population of a country? Return just the language names, but don't repeat entries
 1. In which countries is 'Creole English' used? Order by descending percentage of speakers 
+1. What are the 5 oldest countries (by independence date) with some form of republic government? Tip: there are multiple types of republic
 
 ### Bonus
 
