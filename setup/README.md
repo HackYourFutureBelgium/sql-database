@@ -1,10 +1,17 @@
-# MySQL Installation
+# Setup for Databases module
 
-This guide provides step-by-step instructions on how to install MySQL on different operating systems: Mac, Ubuntu, and Windows.
+To follow this module you need to install 2 things:
+- [MySQL](#installing-my-sql), the SQL database you will use
+- [DBeaver](#installing-dbeaver), an application to ease interacting with the database
 
-## My SQL
+This guide provides step-by-step instructions on how to install these on different operating systems: macOS, Ubuntu, and Windows. 
 
-### Mac
+>[!WARNING]
+> If you're using a different operating system, please find your way through other resources.
+
+## Installing My SQL
+
+### macOS
 
 #### Using Homebrew
 
@@ -108,7 +115,7 @@ $ mysql -u root -p
 
 You will be prompted to enter the root password you set during installation. If MySQL is successfully running, you will be logged into the MySQL command-line interface.
 
-## DBeaver
+## Installing DBeaver
 
 You can interact with a MySQL database directly from your terminal using the `mysql` shell. However, it's more convenient to use a separate application - a SQL client. 
 
