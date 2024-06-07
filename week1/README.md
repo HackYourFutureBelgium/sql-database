@@ -9,7 +9,6 @@ https://www.computerhistory.org/revolution/memory-storage/8/265
 - [What is a database?](#what-is-a-database-1)
 - [Querying data with SQL](#querying-data-with-sql2)
 - [SQL Cheat Sheet?](#basic-sql-commands)
-- TBD
 
 ## What is a database? <sup>[[1]](#references)</sup>
 
@@ -479,7 +478,7 @@ SELECT * FROM city WHERE name LIKE '%los%';
 
 Here, any city that contains the word ‘los’ in its name will be returned in the result.
 
-`LIKE` is not case sensitive. ‘Los Angelos’ and ‘São Carlos’ both appear in the result of the query above.
+`LIKE` is not case sensitive. ‘Los Angeles’ and ‘São Carlos’ both appear in the result of the query above.
 
 How many cities contain the word `saint`?
 
@@ -544,7 +543,7 @@ SELECT name, indepyear FROM country WHERE indepyear IS NOT NULL
 Now let’s do the opposite. Write a query to find all countries for which there is no independence day registered:
 
 ```sql
--- Retrive countries without an independence. Select only the 'name' column
+-- Retrieve countries without an independence. Select only the 'name' column
 SELECT ...
 ```
 
@@ -576,7 +575,7 @@ FROM country
 WHERE continent = 'Europe'
 AND population > 1000000;
 
--- other columns ommited
+-- other columns omitted
 -- +---------+------------+
 -- | name    | population |
 -- +---------+------------+
@@ -619,7 +618,7 @@ SELECT * FROM city WHERE countrycode = 'USA' AND population < 90000;
 ```
 </details><br>
 
-Finally, how many German cities in district of 'Nordrhein-Westfalen' have over 250 thounsad inhabitants?
+Finally, how many German cities in district of 'Nordrhein-Westfalen' have over 250 thousand inhabitants?
 
 ```sql
 -- Retrieve cities in the district of Nordrhein-Westfalen with more than 250000 of population
@@ -678,7 +677,7 @@ With `OR`, if any of the conditions are true, then the row is added to the resul
 It's your turn! Write a query that returns all cities in either Finland (`FIN`) or Norway (`NOR`)
 
 ```sql
--- Retrive cities in either Finland or Norway
+-- Retrieve cities in either Finland or Norway
 SELECT ...
 ```
 
@@ -784,7 +783,7 @@ LIMIT 10;
 Your turn! Combining your knowledge of `LIMIT` and `ORDER BY`, write a query that returns the top 3 highest populated cities.
 
 ```sql
--- Retrive the 3 most populated cities. Select all columns
+-- Retrieve the 3 most populated cities. Select all columns
 SELECT ...
 ```
 
