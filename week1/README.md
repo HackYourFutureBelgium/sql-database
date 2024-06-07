@@ -40,14 +40,16 @@ Let's take a closer look at the previous two tables to see how they are organize
 - Each new **row** contains data about one single entity (such as one product or one order line). This is also called a record. For example, the first row in Table 1 is a record; it describes the A416 product, which is a box of nails that costs fourteen cents. 
 > [!NOTE] 
 > The terms *row* and *record* are interchangeable.
-- Each **column** (also called an attribute) contains one piece of data that relates to the record, called a tuple. Examples of attributes are the quantity of an item sold (`quantity`) or the price of a product (`price`). An attribute, when referring to a database table, is called a field. For example, the data in the `description` column in Table 1 are fields. 
+- Each **column** (also called an attribute) contains one piece of data that relates to the record. Examples of attributes are the quantity of an item sold (`quantity`) or the price of a product (`price`). 
 
 > [!NOTE] 
-> The terms *column*, *attribute* and *field* are interchangeable.
+> The terms *column* and *attribute* are interchangeable.
 
 Given this kind of structure, the database gives you a way to manipulate this data: SQL. SQL (structured query language) is a powerful way to search for records or make changes. 
 
-Relational databases go hand-in-hand with the development of SQL. The simplicity of SQL - where even a novice can learn to perform basic queries in a short period of time - is a large part of the reason for the popularity of the relational model.
+Relational databases go hand-in-hand with the development of SQL. The simplicity of SQL - where even a novice can learn to perform basic queries in a short period of time - is a large part of the reason for the popularity of the relational model. 
+
+SQL is relatively simple to start learning because it's a declarative language. This means the programmer does not directly describe computations (like in Javascript), but instead describes the desired result. It is up to the database to interpret the statements into computations, to produce such a result.
 
 Almost all DBMSs use SQL, although many have added their own enhancements to it. This means that when you learn using a specific DBMS like MySQL, almost all of it is not specific to MySQL and can be used with other relational databases as well, such as PostgreSQL, SQLite, MariaDB, and SQL Server. 
 
@@ -61,11 +63,11 @@ There are many other types of databases besides relational databases, such as gr
 SQL (Structured Query Language) is a standard programming language designed for managing and manipulating relational databases. It provides a powerful set of commands for querying, updating, and managing data stored in a relational database management system (RDBMS). This comprehensive guide aims to provide a detailed understanding of SQL, covering its syntax, data manipulation capabilities, data definition commands, advanced querying techniques, and more.
 
 > [!IMPORTANT]
-> Make sure you MySQL installed in your computer. If you haven't, follow the [MySQL installation guide](../setup/README.md) before continuing.
+> Make sure MySQL is installed in your computer. If it isn't, follow the [MySQL installation guide](../setup/README.md) before continuing.
 
 ### Setting up a sample database
 
-In this section we expect you to follow along the commands. We'll be using an example datase (`world`), so we must set it up.
+In this section we expect you to follow along the commands. We'll be using an example database (`world`), so we must set it up.
 
 To install the sample database, follow these steps:
 
@@ -107,7 +109,7 @@ One of the core purposes of the SQL language is to retrieve information stored i
 
 We will be querying the `world` [<sup>[3]</sup>](#references) database.
 
-Let’s get started! We should get acquainted with the `city` table.
+Let’s get started! We should get familiar with the `city` table.
 
 If you haven't, [connect to your MySQL server](#setup), and then type the following:
 
@@ -235,7 +237,7 @@ SELECT countrycode as 'ISO Country Code' FROM city;
 > SELECT name AS n, countrycode AS c FROM city;
 > ```
 
-### Distinct
+### `DISTINCT`
 
 When we are examining data in a table, it can be helpful to know what distinct values exist in a particular column.
 
@@ -244,38 +246,46 @@ When we are examining data in a table, it can be helpful to know what distinct v
 For instance,
 
 ```sql
-SELECT tools FROM inventory;
+SELECT name, countrycode from city;
 ```
 
-might produce:
+will produce:
 
-| tools  |
-|--------|
-| Hammer |
-| Nails  |
-| Nails  |
-| Nails  |
+| `name`          | `countrycode` |
+|-----------------|---------------|
+| Kabul           | AFG           |
+| Qandahar        | AFG           |
+| Herat           | AFG           |
+| Mazar-e-Sharif  | AFG           |
+| Amsterdam       | NLD           |
+| Rotterdam       | NLD           |
+| Haag            | NLD           |
+| Utrecht         | NLD           |
+| (...)           | (...)         |
 
-By adding `DISTINCT` before the column name,
+You'll notice there are multiple cities from countries `AFG`, and `NLD`. 
+
+It is easier to see the different `countrycode`s in the `city` table after the data has been filtered than to scan every row in the table. 
+
+You can do that by adding a `DISTINCT` before the column name. Let's try it out:
 
 ```sql
-SELECT DISTINCT tools FROM inventory;
+SELECT DISTINCT countrycode FROM city;
 ```
 
 the result would now be:
 
-| tools  |
-|--------|
-| Hammer |
-| Nails  |
+| `countrycode` |
+|---------------|
+| ABW           |
+| AFG           |
+| AGO           |
+| AIA           |
+| ALB           |
+| AND           |
+| (...)         |
 
-Filtering the results of a query is an important skill in SQL. It is easier to see the different countries in the `city` table after the data has been filtered than to scan every row in the table.
-
-Let's try it out:
-
-```sql
-SELECT DISTINCT countrycode from city;
-```
+You should notice no `countrycode` is listed more than once.
 
 Now, change the code so we return the unique values of the `district` column instead.
 
@@ -301,6 +311,40 @@ SELECT DISTINCT district from city;
 -- 4079 rows in set
 ```
 </details>
+
+### `FROM`
+
+In your very first query:
+
+```sql
+SELECT * FROM city
+```
+
+the `FROM` command is used to specify which table(s) to select data from.
+
+The `world` database also has a `country` table. We can retrieve data from that table by changing the `FROM` clause:
+
+```sql
+SELECT * from country;
+
+-- +-------+-------------+---------------+---------------------------+-------+---------+-------+
+-- | Code  | Name        | Continent     | Region                    | (...) | Capital | Code2 |
+-- +-------+-------------+---------------+---------------------------+-------+---------+-------|
+-- | ABW   | Aruba       | North America | Caribbean                 | (...) |     129 | AW    |
+-- | AFG   | Afghanistan | Asia          | Southern and Central Asia | (...) |       1 | AF    |
+-- | AGO   | Angola      | Africa        | Central Africa            | (...) |      56 | AO    |
+-- | (...) | (...)       | (...)         | (...)                     | (...) |   (...) | (...) |
+-- +------ +-------------+---------------+---------------------------+-------+---------+-------|
+```
+
+> [!TIP] You can see which tables exist in the `world` database with a command:
+> ```sql
+> SHOW TABLES;
+> ```
+> In DBeaver, open `Databases > 'world' > Tables` on the left sidebar.
+
+> [!IMPORTANT]
+> `SELECT` and `FROM` are the most basic SQL query operators. They allows to specify which tables (`FROM`) and columns (`SELECT`) we want to retrieve from the database.
  
 ### `WHERE`
 
