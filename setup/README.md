@@ -1,8 +1,9 @@
 # Setup for Databases module
 
-To follow this module you need to install 2 things:
-- [MySQL](#installing-my-sql), the SQL database you will use
-- [DBeaver](#installing-dbeaver), an application to ease interacting with the database
+To follow this module you need to prepare 3 things:
+- [Install MySQL](#installing-my-sql), the SQL database you will use
+- [Install DBeaver](#installing-dbeaver), an application to ease interacting with the database
+- [Setup the `world` database](#setting-up-the-world-database) in DBeaver
 
 This guide provides step-by-step instructions on how to install these on different operating systems: macOS, Ubuntu, and Windows. 
 
