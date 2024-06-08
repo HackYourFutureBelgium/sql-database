@@ -8,7 +8,7 @@ https://www.computerhistory.org/revolution/memory-storage/8/265
 
 - [What is a database?](#what-is-a-database-1)
 - [Querying data with SQL](#querying-data-with-sql2)
-- [SQL Cheat Sheet?](#basic-sql-commands)
+- [Querying from multiple tables](#querying-from-multiple-tables)
 
 ## What is a database? <sup>[[1]](#references)</sup>
 
@@ -104,7 +104,7 @@ You should see an output similar to the following:
 
 In this section, we will be learning different SQL commands to query a table in a database.
 
-One of the core purposes of the SQL language is to retrieve information stored in a database. This is commonly referred to as querying. Queries allow us to communicate with the database by asking questions and returning a result set with data relevant to the question.
+One of the core purposes of the SQL language is to retrieve information stored in a database. This is commonly referred to as querying. SQL queries allow us to communicate with the database by asking questions in the form of a structured formal language and obtaining all matching data as a result.
 
 We will be querying the `world` [<sup>[3]</sup>](#references) database.
 
@@ -806,9 +806,114 @@ SELECT * FROM city ORDER by population DESC LIMIT 3;
 
 > [!TIP] If the number set in the `LIMIT` clause surpasses the number of rows available to select, then it will just return the rows that are present.
 
+## Querying from multiple tables
+
+As introduced in the ["What is a database?"](#what-is-a-database-1) section, in order to efficiently store data, we often spread related information across multiple tables.
+
+For example, in the `city` table, let's assume we want more information about the country. We could add the country information to the `city` table:
+
+| `city_id`   | `city_name`  | `city_countrycode` | `city_district`         | `city_population` | `country_code` | `country_name`                 | `country_continent`     | `country_region`                    | `country_surfacearea` |
+|------|---------------------|-------------|------------------|------------|------|----------------------|---------------|---------------------------|-------------|
+|    1 | Kabul               | AFG         | Kabol            |    1780000 | AFG  | Afghanistan          | Asia          | Southern and Central Asia |   652090.00 |
+|    2 | Qandahar            | AFG         | Qandahar         |     237500 | AFG  | Afghanistan          | Asia          | Southern and Central Asia |   652090.00 |
+|    3 | Herat               | AFG         | Herat            |     186800 | AFG  | Afghanistan          | Asia          | Southern and Central Asia |   652090.00 |
+|    4 | Mazar-e-Sharif      | AFG         | Balkh            |     127800 | AFG  | Afghanistan          | Asia          | Southern and Central Asia |   652090.00 |
+|   56 | Luanda              | AGO         | Luanda           |    2022000 | AGO  | Angola               | Africa        | Central Africa            |  1246700.00 |
+|   57 | Huambo              | AGO         | Huambo           |     163100 | AGO  | Angola               | Africa        | Central Africa            |  1246700.00 |
+|   58 | Lobito              | AGO         | Benguela         |     130000 | AGO  | Angola               | Africa        | Central Africa            |  1246700.00 |
+|   59 | Benguela            | AGO         | Benguela         |     128300 | AGO  | Angola               | Africa        | Central Africa            |  1246700.00 |
+|   60 | Namibe              | AGO         | Namibe           |     118200 | AGO  | Angola               | Africa        | Central Africa            |  1246700.00 |
+|   61 | South Hill          | AIA         | –                |        961 | AIA  | Anguilla             | North America | Caribbean                 |       96.00 |
+|   62 | The Valley          | AIA         | –                |        595 | AIA  | Anguilla             | North America | Caribbean                 |       96.00 |
+|   34 | Tirana              | ALB         | Tirana           |     270000 | ALB  | Albania              | Europe        | Southern Europe           |    28748.00 |
+|   55 | Andorra la Vella    | AND         | Andorra la Vella |      21189 | AND  | Andorra              | Europe        | Southern Europe           |      468.00 |
+|   64 | Dubai               | ARE         | Dubai            |     669181 | ARE  | United Arab Emirates | Asia          | Middle East               |    83600.00 |
+|   65 | Abu Dhabi           | ARE         | Abu Dhabi        |     398695 | ARE  | United Arab Emirates | Asia          | Middle East               |    83600.00 |
+|   66 | Sharja              | ARE         | Sharja           |     320095 | ARE  | United Arab Emirates | Asia          | Middle East               |    83600.00 |
+|   67 | al-Ayn              | ARE         | Abu Dhabi        |     225970 | ARE  | United Arab Emirates | Asia          | Middle East               |    83600.00 |
+|   68 | Ajman               | ARE         | Ajman            |     114395 | ARE  | United Arab Emirates | Asia          | Middle East               |    83600.00 |
+|   69 | Buenos Aires        | ARG         | Distrito Federal |    2982146 | ARG  | Argentina            | South America | South America             |  2780400.00 |
+|   70 | La Matanza          | ARG         | Buenos Aires     |    1266461 | ARG  | Argentina            | South America | South America             |  2780400.00 |
+|   71 | Córdoba             | ARG         | Córdoba          |    1157507 | ARG  | Argentina            | South America | South America             |  2780400.00 |
+
+However, a lot of this information would be repeated. Notice how for cities in the same country all the `country_(...)` information is the same. This will make our table big and unmanageable.
+
+Instead, the data is split into 2 tables: `city` and `country`, the ones you've using so far.
+
+1. `city` contains information about the cities:
+    - `id`, `name`, `countrycode`, `district`, and population
+1. `country` contains information about each country:
+    - `code`, `name`, `continent`, `region`, `surfacearea`, and more...
+
+### Combining Tables 
+
+If we just look at the `city` table, we can't know more details about the respective country. However, if we refer to the `country` table, we can get a complete picture: 
+
+```sql
+SELECT * FROM city;
+-- +----+----------------+-------------+---------------+------------+
+-- | ID | Name           | CountryCode | District      | Population |
+-- +----+----------------+-------------+---------------+------------+
+-- |  1 | Kabul          | AFG         | Kabol         |    1780000 |
+-- |  2 | Qandahar       | AFG         | Qandahar      |     237500 |
+-- (...)
+-- |  6 | Rotterdam      | NLD         | Zuid-Holland  |     593321 |
+-- |  7 | Haag           | NLD         | Zuid-Holland  |     440900 |
+-- (...)
+
+SELECT code, name, continent, region from country;
+
+-- +------+-------------+---------------+---------------------------+
+-- | code | name        | continent     | region                    |
+-- +------+-------------+---------------+---------------------------+
+-- | ABW  | Aruba       | North America | Caribbean                 |
+-- | AFG  | Afghanistan | Asia          | Southern and Central Asia |
+-- (...)
+-- | NLD  | Netherlands    | Europe        | Western Europe         |
+-- | NOR  | Norway         | Europe        | Nordic Countries       |
+-- (...)
+```
+
+To find out more about the country where Rotterdam is located, we can look in the `country` table for the record with code `NLD`. We can then see that Rotterdam is in the Netherlands, located in Europe.
+
+Doing this kind of matching is called joining two tables.
+
+> [!IMPORTANT]
+> Notice how `city.countrycode` matches `country.code` values
+
+### `JOIN`
+
+Combining tables manually is time-consuming. Luckily, SQL gives us an easy sequence for this: it’s called a `JOIN`.
+
+If we want to combine cities and countries, we would type:
+
+```sql
+SELECT *                                -- [1]
+FROM city                               -- [2]
+join country                            -- [3]
+    on city.countrycode = country.code; -- [4]
+```
+
+Let’s break down this command:
+
+1. Selects all columns from our combined table. If we only want to select certain columns, we can specify which ones we want.
+1. Specifies the first table that we want to look in, `city`
+1. Uses `JOIN` to say that we want to combine information from `city` with `country`
+1. The fourth line tells us how to combine the two tables. We want to match `city` table’s `countrycode` column with `country` table’s `code` column.
+
+> [!IMPORTANT]
+> Because column names are often repeated across multiple tables, we use the syntax `table_name.column_name` to be sure that our requests for columns are unambiguous.
+
+When we perform a simple `JOIN` (often called an inner join) our result only includes rows that match our `ON` condition. The result will not include the non-matching entries.
+
+<img src="./images/image-2.png" alt="inner join" width="66%"/>
+
+> [!NOTE]
+> There are multiple types of `JOIN` clauses, for example `LEFT JOIN`. We'll cover those later in the module.
+
 ### Summary
 
-We just learned how to query data from a database using SQL using real life `world` data. We also learned how to filter queries to make the information more specific and useful.
+We just learned how to query data from a database using SQL from real life `world` data. We also learned how to filter queries to make the information more specific and useful.
 
 In summary:
 
@@ -820,6 +925,7 @@ In summary:
 - `AND` and `OR` combines multiple conditions.
 - `ORDER BY` sorts the result.
 - `LIMIT` specifies the maximum number of rows that the query will return.
+- `JOIN` will combine rows from different tables if the join condition is true.
 
 Feel free to experiment a bit more with the `world` database before moving on!
 
