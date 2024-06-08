@@ -906,7 +906,7 @@ Let’s break down this command:
 
 When we perform a simple `JOIN` (often called an inner join) our result only includes rows that match our `ON` condition. The result will not include the non-matching entries.
 
-<img src="./images/image-2.png" alt="inner join" width="66%"/>
+<img src="./images/inner-join.webp" alt="inner join" width="66%"/>
 
 > [!NOTE]
 > There are multiple types of `JOIN` clauses, for example `LEFT JOIN`. We'll cover those later in the module.
