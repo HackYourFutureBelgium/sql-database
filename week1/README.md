@@ -879,6 +879,38 @@ When we perform a simple `JOIN` (often called an inner join) our result only inc
 > [!NOTE]
 > There are multiple types of `JOIN` clauses, for example `LEFT JOIN`. We'll cover those later in the module.
 
+It's your turn! Write a query to return country names, their population, and languages spoken? Hint: you need to use the `country` and `countrylanguage` table.
+
+```sql
+-- Retrieve country names, their population, and languages spoken (one language per row)
+SELECT * from ...
+```
+
+<details>
+<summary>View solution</summary>
+
+```sql
+SELECT country.name, country.population, countrylanguage.language 
+FROM country 
+JOIN countrylanguage ON country.code = countrylanguage.countryCode
+
+-- +-------------+------------+------------+
+-- | name        | population | language   |
+-- +-------------+------------+------------+
+-- | Aruba       |     103000 | Dutch      |
+-- | Aruba       |     103000 | English    |
+-- | Aruba       |     103000 | Papiamento |
+-- | Aruba       |     103000 | Spanish    |
+-- | Afghanistan |   22720000 | Balochi    |
+-- | Afghanistan |   22720000 | Dari       |
+-- | Afghanistan |   22720000 | Pashto     |
+-- | Afghanistan |   22720000 | Turkmenian |
+-- | Afghanistan |   22720000 | Uzbek      |
+-- (...)
+-- 984 rows in set
+```
+</details><br>
+
 ### Summary
 
 We just learned how to query data from a database using SQL from real life `world` data. We also learned how to filter queries to make the information more specific and useful.
