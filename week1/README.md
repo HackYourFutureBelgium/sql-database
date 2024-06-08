@@ -62,55 +62,23 @@ There are many other types of databases besides relational databases, such as gr
 SQL (Structured Query Language) is a standard programming language designed for managing and manipulating relational databases. It provides a powerful set of commands for querying, updating, and managing data stored in a relational database management system (RDBMS). This comprehensive guide aims to provide a detailed understanding of SQL, covering its syntax, data manipulation capabilities, data definition commands, advanced querying techniques, and more.
 
 > [!IMPORTANT]
-> Make sure MySQL is installed in your computer. If it isn't, follow the [MySQL installation guide](../setup/README.md) before continuing.
+> This sections assumes you have the `world` database setup in your computer. If it isn't, complete the [setup guide](../setup/README.md) before continuing.
 
 ### Setting up a sample database
 
-In this section we expect you to follow along the commands. We'll be using an example database (`world`), so we must set it up.
-
-To install the sample database, follow these steps:
-
-1. Assuming you are in the repository's root directory, run the following in a terminal:
-
-```shell
-$ mysql -u "root" -p < "week1/databases/world.sql" # enter your password when asked
-```
-
-This will connect to your MySQL server and execute the `world.sql` script.
-
-2. Connect again to the MySQL server to confirm the `world` database is installed correctly. 
-
-```shell
-$ mysql -u "root" -p # enter your password when asked
-
-mysql> USE world;
-mysql> SHOW TABLES;
-```
-
-You should see an output similar to the following:
-
-```
-+-----------------+
-| Tables_in_world |
-+-----------------+
-| city            |
-| country         |
-| countrylanguage |
-+-----------------+
-3 rows in set (0.00 sec)
-```
+In this section we expect you to follow along the commands. We'll be using an example database - `world`[<sup>[3]</sup>](#references) - that contains data on cities, countries, and languages.
 
 ## Querying Data with SQL<sup>[[2]](#references)</sup>
 
-In this section, we will be learning different SQL commands to query a table in a database.
+In this section, we will be learning different SQL commands to query tables in a database.
 
 One of the core purposes of the SQL language is to retrieve information stored in a database. This is commonly referred to as querying. SQL queries allow us to communicate with the database by asking questions in the form of a structured formal language and obtaining all matching data as a result.
 
-We will be querying the `world` [<sup>[3]</sup>](#references) database.
-
 Let’s get started! We should get familiar with the `city` table.
 
-If you haven't, [connect to your MySQL server](#setup), and then type the following:
+In DBeaver, open a SQL console and then type the following:
+
+![alt text](image.png)
 
 ```sql
 SELECT * FROM city;

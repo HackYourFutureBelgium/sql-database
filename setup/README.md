@@ -146,3 +146,79 @@ $ sudo apt-get update
 ```shell
 $ sudo apt-get install dbeaver-ce
 ```
+
+## Setting up the `world` database
+
+For the exercises we'll be using an example database (`world`), so we must set it up.
+
+To install the sample database, follow these steps:
+
+1. If you haven't already, clone this repository and enter its directory: 
+
+```shell
+$ git clone git@github.com:HackYourFutureBelgium/sql-database.git
+$ cd sql-database
+```
+
+2. Import the `world` database:
+
+```shell
+$ mysql -u "root" -p < "week1/databases/world.sql" # enter your password when asked
+```
+
+This will connect to your MySQL server and execute the `world.sql` script.
+
+3. Connect again to the MySQL server to confirm the `world` database is installed correctly. 
+
+```shell
+$ mysql -u "root" -p # enter your password when asked
+
+mysql> USE world;
+mysql> SHOW TABLES;
+```
+
+You should see an output similar to the following:
+
+```
++-----------------+
+| Tables_in_world |
++-----------------+
+| city            |
+| country         |
+| countrylanguage |
++-----------------+
+3 rows in set (0.00 sec)
+```
+
+4. Instead of using your terminal, we recommend using DBeaver to interact with the database:
+
+- Open DBeaver
+- On the left sidebar ("Database Navigator"), click "New Database Connection"
+- Choose `MySQL` as driver
+
+<img src="./images/choose-driver
+.png" alt="choose mysql drive" width="66%"/>
+
+- Enter the following information:
+  - Server Host: `localhost`
+  - Database: `world`
+  - Username: `root`
+  - Password: `<your-password>` (can be blank if you installed via Homebrew)
+
+You should now see the `world` database and its tables on the Database Navigator:
+
+<img src="./images/database-list.png" alt="database list" width="66%"/>
+
+- Open a SQL console by by right-clicking `world -> SQL Editor -> New SQL console`
+
+![alt text](./images/new-sql-console.png)
+
+- Then write a sample command: 
+
+```sql
+SHOW TABLES;
+```
+
+![alt text](./images/sample-command.png)
+
+If you see the sample above, everything is ok! You have successfully connected to the `world` database and can follow along to this week's [Readings](../week1/README.md) and [Exercises](../week1/EXERCISES.md)).
