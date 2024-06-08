@@ -3,7 +3,7 @@
 
 # sql-database
 
-[WIP] Databases module of HackYourFuture Belgium's Sunday classes, 2024 edition
+Databases module of HackYourFuture Belgium's Sunday classes, 2024 edition
 
 In the world of data management and database systems, SQL (Structured Query Language) is fundamental technology that plays a crucial role. SQL is a standardized programming language used for managing and querying relational databases, while MySQL is one of the most popular open-source relational database management systems that can be used with various programming languages. 
 
@@ -25,10 +25,6 @@ In this module, you will learn the fundamentals of Databases, with a focus relat
 - How to work with `Structured Query Language` (SQL)
 - How to design a simple relational model and create its SQL representation
 - Hands on experience with `MySQL`, as an example of a relational database system
-
-### How to study
-
-TODO
 
 ## Agenda
 
