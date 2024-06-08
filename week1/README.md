@@ -304,7 +304,8 @@ SELECT * from country;
 -- +------ +-------------+---------------+---------------------------+-------+---------+-------|
 ```
 
-> [!TIP] You can see which tables exist in the `world` database with a command:
+> [!TIP] 
+> You can see which tables exist in the `world` database with a command:
 > ```sql
 > SHOW TABLES;
 > ```
@@ -780,29 +781,28 @@ As introduced in the ["What is a database?"](#what-is-a-database-1) section, in 
 
 For example, in the `city` table, let's assume we want more information about the country. We could add the country information to the `city` table:
 
-| `city_id`   | `city_name`  | `city_countrycode` | `city_district`         | `city_population` | `country_code` | `country_name`                 | `country_continent`     | `country_region`                    | `country_surfacearea` |
-|------|---------------------|-------------|------------------|------------|------|----------------------|---------------|---------------------------|-------------|
-|    1 | Kabul               | AFG         | Kabol            |    1780000 | AFG  | Afghanistan          | Asia          | Southern and Central Asia |   652090.00 |
-|    2 | Qandahar            | AFG         | Qandahar         |     237500 | AFG  | Afghanistan          | Asia          | Southern and Central Asia |   652090.00 |
-|    3 | Herat               | AFG         | Herat            |     186800 | AFG  | Afghanistan          | Asia          | Southern and Central Asia |   652090.00 |
-|    4 | Mazar-e-Sharif      | AFG         | Balkh            |     127800 | AFG  | Afghanistan          | Asia          | Southern and Central Asia |   652090.00 |
-|   56 | Luanda              | AGO         | Luanda           |    2022000 | AGO  | Angola               | Africa        | Central Africa            |  1246700.00 |
-|   57 | Huambo              | AGO         | Huambo           |     163100 | AGO  | Angola               | Africa        | Central Africa            |  1246700.00 |
-|   58 | Lobito              | AGO         | Benguela         |     130000 | AGO  | Angola               | Africa        | Central Africa            |  1246700.00 |
-|   59 | Benguela            | AGO         | Benguela         |     128300 | AGO  | Angola               | Africa        | Central Africa            |  1246700.00 |
-|   60 | Namibe              | AGO         | Namibe           |     118200 | AGO  | Angola               | Africa        | Central Africa            |  1246700.00 |
-|   61 | South Hill          | AIA         | –                |        961 | AIA  | Anguilla             | North America | Caribbean                 |       96.00 |
-|   62 | The Valley          | AIA         | –                |        595 | AIA  | Anguilla             | North America | Caribbean                 |       96.00 |
-|   34 | Tirana              | ALB         | Tirana           |     270000 | ALB  | Albania              | Europe        | Southern Europe           |    28748.00 |
-|   55 | Andorra la Vella    | AND         | Andorra la Vella |      21189 | AND  | Andorra              | Europe        | Southern Europe           |      468.00 |
-|   64 | Dubai               | ARE         | Dubai            |     669181 | ARE  | United Arab Emirates | Asia          | Middle East               |    83600.00 |
-|   65 | Abu Dhabi           | ARE         | Abu Dhabi        |     398695 | ARE  | United Arab Emirates | Asia          | Middle East               |    83600.00 |
-|   66 | Sharja              | ARE         | Sharja           |     320095 | ARE  | United Arab Emirates | Asia          | Middle East               |    83600.00 |
-|   67 | al-Ayn              | ARE         | Abu Dhabi        |     225970 | ARE  | United Arab Emirates | Asia          | Middle East               |    83600.00 |
-|   68 | Ajman               | ARE         | Ajman            |     114395 | ARE  | United Arab Emirates | Asia          | Middle East               |    83600.00 |
-|   69 | Buenos Aires        | ARG         | Distrito Federal |    2982146 | ARG  | Argentina            | South America | South America             |  2780400.00 |
-|   70 | La Matanza          | ARG         | Buenos Aires     |    1266461 | ARG  | Argentina            | South America | South America             |  2780400.00 |
-|   71 | Córdoba             | ARG         | Córdoba          |    1157507 | ARG  | Argentina            | South America | South America             |  2780400.00 |
+| `city_id` | `city_name`      | `city_district`     | `city_population` | `country_code` | `country_name`           | `country_continent` | `country_surfacearea` |
+|-----------|------------------|---------------------|-------------------|----------------|-------------------------|---------------------|-----------------------|
+| 1         | Kabul            | Kabol               | 1780000           | AFG            | Afghanistan             | Asia                | 652090.00             |
+| 2         | Qandahar         | Qandahar            | 237500            | AFG            | Afghanistan             | Asia                | 652090.00             |
+| 3         | Herat            | Herat               | 186800            | AFG            | Afghanistan             | Asia                | 652090.00             |
+| ...       | ...              | ...                 | ...               | ...            | ...                     | ...                 | ...                   |
+| 56        | Luanda           | Luanda              | 2022000           | AGO            | Angola                  | Africa              | 1246700.00            |
+| 57        | Huambo           | Huambo              | 163100            | AGO            | Angola                  | Africa              | 1246700.00            |
+| 58        | Lobito           | Benguela            | 130000            | AGO            | Angola                  | Africa              | 1246700.00            |
+| ...       | ...              | ...                 | ...               | ...            | ...                     | ...                 | ...                   |
+| 61        | South Hill       | –                   | 961               | AIA            | Anguilla                | North America       | 96.00                 |
+| 62        | The Valley       | –                   | 595               | AIA            | Anguilla                | North America       | 96.00                 |
+| 34        | Tirana           | Tirana              | 270000            | ALB            | Albania                 | Europe              | 28748.00              |
+| ...       | ...              | ...                 | ...               | ...            | ...                     | ...                 | ...                   |
+| 64        | Dubai            | Dubai               | 669181            | ARE            | United Arab Emirates    | Asia                | 83600.00              |
+| 65        | Abu Dhabi        | Abu Dhabi           | 398695            | ARE            | United Arab Emirates    | Asia                | 83600.00              |
+| 66        | Sharja           | Sharja              | 320095            | ARE            | United Arab Emirates    | Asia                | 83600.00              |
+| ...       | ...              | ...                 | ...               | ...            | ...                     | ...                 | ...                   |
+| 69        | Buenos Aires     | Distrito Federal    | 2982146           | ARG            | Argentina               | South America       | 2780400.00            |
+| 70        | La Matanza       | Buenos Aires        | 1266461           | ARG            | Argentina               | South America       | 2780400.00            |
+| 71        | Córdoba          | Córdoba             | 1157507           | ARG            | Argentina               | South America       | 2780400.00            |
+| ...       | ...              | ...                 | ...               | ...            | ...                     | ...                 | ...                   |
 
 However, a lot of this information would be repeated. Notice how for cities in the same country all the `country_(...)` information is the same. This will make our table big and unmanageable.
 
