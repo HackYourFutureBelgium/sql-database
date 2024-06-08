@@ -1,12 +1,7 @@
 # Exercises Week 1
 
-## Overview 
-
-1. Select queries in the `world` database
-1. Create your own database
-
 > [!IMPORTANT]
-> This assumes you have imported the `world` databse as described [here](./README.md).
+> This assumes you have imported the `world` database as described [here](../setup/README.md).
 
 ## Queries in the `world` database
 
@@ -14,26 +9,7 @@ Now that you know the fundamentals of SQL, it's time to practice retrieving data
 
 We'll be using the `world` database introduced in this week's [Readings](README.md).
 
-First, connect to the `world` database:
-
-```shell
-# connect to the database
-$ mysql -u "root" -p # enter your password when asked
-
-mysql> USE world;
-mysql> SHOW TABLES;
-
-# +-----------------+
-# | Tables_in_world |
-# +-----------------+
-# | city            |
-# | country         |
-# | countrylanguage |
-# +-----------------+
-# 3 rows in set (0.00 sec)
-```
-
-Now, write an SQL query to answer each of the following questions about the world. You may need to use the `city`, `country`, or `countrylanguage` tables.
+Write an SQL query to answer each of the following questions about the world. You may need to use the `city`, `country`, or `countrylanguage` tables.
 
 ### Questions:
 
@@ -51,12 +27,14 @@ Now, write an SQL query to answer each of the following questions about the worl
 1. What languages are spoken by over 90% of the population of a country? Return just the language names, but don't repeat entries
 1. In which countries is 'Creole English' used? Order by descending percentage of speakers 
 1. What are the 5 oldest countries (by independence date) with some form of republic government? Tip: there are multiple types of republic
+1. For each country, how many people speak each language? Important: we want absolute values, not a percentage. Return the name of the country, the name of the language, and number of speakers of that language
+    - Hint: you need both the `country` and `countrylanguage` tables
+    - Hint: you can do calculations between columns, for example (`SELECT a - b from table;`)
 
 ### Bonus
 
-For these questions, you need to learn other SQL topics. Try studying the slides linked in each section or ask your Coach for help!
+For these exercises, you need to learn about Aggregations in SQL. Try solving them by using this [cheat sheet](https://www.codecademy.com/learn/intro-sql-back-end-development/modules/webdev-sql-aggregates/cheatsheet) or ask your Coach for help!
 
-#### [Aggregation](https://web.fe.up.pt/~arestivo/slides/?s=sql-dql#42)
 1. What is the total population of the world?
 1. What is the average population of countries in Europe?
 1. How many *official* languages are spoken in Belgium (`BEL`)? Return the country code, and the number of languages as "Number of Languages"
@@ -66,7 +44,7 @@ For these questions, you need to learn other SQL topics. Try studying the slides
 
 ### Submitting your work
 
-Once you're sure you have the right queries, add them to a file `databases-week1-exercises.sql`.
+Once you're sure you have the right queries, add them to a file `databases-week1-exercises.sql` - you can use [this one](./databases/databases-week1-exercises.sql) as an example.
 
 Please share that file with your Coach:
 - [Class 22](https://github.com/HackYourFutureBelgium/sql-database/issues/8)
