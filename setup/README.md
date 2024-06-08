@@ -196,7 +196,8 @@ You should see an output similar to the following:
 - On the left sidebar ("Database Navigator"), click "New Database Connection"
 - Choose `MySQL` as driver
 
-<img src="./images/image.png" alt="choose mysql drive" width="66%"/>
+<img src="./images/choose-driver
+.png" alt="choose mysql drive" width="66%"/>
 
 - Enter the following information:
   - Server Host: `localhost`
@@ -206,11 +207,11 @@ You should see an output similar to the following:
 
 You should now see the `world` database and its tables on the Database Navigator:
 
-<img src="./images/image-1.png" alt="database list" width="66%"/>
+<img src="./images/database-list.png" alt="database list" width="66%"/>
 
 - Open a SQL console by by right-clicking `world -> SQL Editor -> New SQL console`
 
-![alt text](image.png)
+![alt text](./images/new-sql-console.png)
 
 - Then write a sample command: 
 
@@ -218,6 +219,6 @@ You should now see the `world` database and its tables on the Database Navigator
 SHOW TABLES;
 ```
 
-![alt text](image-1.png)
+![alt text](./images/sample-command.png)
 
 If you see the sample above, everything is ok! You have successfully connected to the `world` database and can follow along to this week's [Readings](../week1/README.md) and [Exercises](../week1/EXERCISES.md)).
