@@ -35,8 +35,6 @@ mysql> SHOW TABLES;
 
 Now, write an SQL query to answer each of the following questions about the world. You may need to use the `city`, `country`, or `countrylanguage` tables.
 
-Once you're sure you have the right query, add them to a file `databases-week1-exercises.sql` (TODO: add file when exercises are complete).
-
 ### Questions:
 
 1. What are the names of countries with population greater than 8 million?
@@ -56,9 +54,20 @@ Once you're sure you have the right query, add them to a file `databases-week1-e
 
 ### Bonus
 
-For these questions, you need to learn other SQL topics. Take a look at the Cheat Sheet (TODO) or ask your Coach for help!
+For these questions, you need to learn other SQL topics. Try studying the slides linked in each section or ask your Coach for help!
 
+#### [Aggregation](https://web.fe.up.pt/~arestivo/slides/?s=sql-dql#42)
 1. What is the total population of the world?
 1. What is the average population of countries in Europe?
 1. How many *official* languages are spoken in Belgium (`BEL`)? Return the country code, and the number of languages as "Number of Languages"
 
+>[!TIP] 
+> More questions will be added
+
+### Submitting your work
+
+Once you're sure you have the right queries, add them to a file `databases-week1-exercises.sql`.
+
+Please share that file with your Coach:
+- [Class 22](https://github.com/HackYourFutureBelgium/sql-database/issues/8)
+- [Class 23](https://github.com/HackYourFutureBelgium/sql-database/issues/7)
