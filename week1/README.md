@@ -478,8 +478,19 @@ SELECT ...
 <summary>View solution</summary>
 
 ```sql
-SELECT * FROM city WHERE name LIKE '%New ';
--- Answer: 6 cities
+SELECT * FROM city WHERE name LIKE 'New %';
+
+-- +------+-------------+-------------+---------------+------------+
+-- | ID   | Name        | CountryCode | District      | Population |
+-- +------+-------------+-------------+---------------+------------+
+-- | 1106 | New Bombay  | IND         | Maharashtra   |     307297 |
+-- | 1109 | New Delhi   | IND         | Delhi         |     301297 |
+-- | 3793 | New York    | USA         | New York      |    8008278 |
+-- | 3823 | New Orleans | USA         | Louisiana     |     484674 |
+-- | 3971 | New Haven   | USA         | Connecticut   |     123626 |
+-- | 4044 | New Bedford | USA         | Massachusetts |      94780 |
+-- +------+-------------+-------------+---------------+------------+
+-- 6 rows in set (0,01 sec)
 ```
 </details><br>
 
