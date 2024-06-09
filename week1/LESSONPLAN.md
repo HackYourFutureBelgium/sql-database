@@ -1,29 +1,22 @@
 # Databses - Week 1
 
-- TODO
-
 ## Before Class
 
-- TODO
+- Follow the [setup instructions](../setup/README.md)
 
 ## During Class
 
-- TODO
-
 ### Before Break
 
-- TODO
+- Introduction to Relational Model
+- Demo of SQL by following the [Readings](../week1/README.md)
+- Students self study the [Readings](../week1/README.md)
 
 ### After Break
 
-- TODO
-
----
+- Students continue self study following the [Readings](../week1/README.md)
+- When finished: start the [Exercises](../week1/EXERCISES.md)
 
 ## After Class
 
-There's no project due, just plenty of practice. Work on the exercises in this module, and continue studying your favorite tutorial(s).
-
-Study together! Working in small groups and taking turns to predict and explain
-what is happening with the code is a nice way to spend a few hours. Teaching is
-a great way to learn.
+- Continue and finish the [Exercises](../week1/EXERCISES.md)
