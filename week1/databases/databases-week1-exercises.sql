@@ -42,7 +42,7 @@ limit 10;
 -- 9. What countries in Africa have the local name the same as their common name?
 SELECT name 
 FROM country 
-WHERE LocalName = name;
+WHERE LocalName = name and Continent = 'Africa';
 
 -- 10. What countries have Spanish as official language? Hint: see countrylanguage table
 SELECT country.name 
