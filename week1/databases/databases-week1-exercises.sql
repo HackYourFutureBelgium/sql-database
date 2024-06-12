@@ -71,6 +71,9 @@ SELECT ...
 SELECT ...
 
 -- 5. Find the largest city by population in each country.
+-- Tip: It is possible to use nested queries, for example, if you wanted to get all the countries which population
+-- is greater than Spain's you would do:
+-- SELECT Name FROM country WHERE Population > (SELECT Population FROM country WHERE Name = 'Spain')
 SELECT ...
 
 -- 6. List the names of all cities with a population of over 1 million in the continent of 'Asia'.
