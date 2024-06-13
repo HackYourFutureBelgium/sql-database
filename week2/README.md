@@ -203,7 +203,7 @@ Here's the `book` and `ratings` table:
 
 ![alt text](book_rating.png)
 
-> ![IMPORTANT]
+> [!IMPORTANT]
 > `id` is a primary key in `books`, but `book_id` is a foreign key in `ratings`.
 
 #### Many-to-many
