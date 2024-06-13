@@ -111,15 +111,15 @@ Consider this case, where each author writes only one book and each book is writ
 
 TODO: redo images
 
-![alt text](image.png)
+<img src="./image.png" alt="one to one relationship" width="66%"/>
 
 On the other hand, if an author can write multiple books, the relationship is a **one-to-many relationship**.
 
-![alt text](image-1.png)
+<img src="./image-1.png" alt="one to many relationship" width="66%"/>
 
 But actually, neither of those reflect reality. Not only can one author write multiple books, but books can also be co-written by multiple authors. This is a **many-to-many** relationship.
 
-![alt text](image-2.png)
+<img src="./image-2.png" alt="many to many relationship" width="66%"/>
 
 > [!IMPORTANT]
 > There are 3 types of relationships in the relational model:
@@ -137,7 +137,7 @@ Also, it's relatively simple to convert ER diagrams to the Relational Model (tha
 
 Here's an ER diagram for the `book review` problem:
 
-![alt text](<books-er.png>)
+<img src="books-er.png" alt="books er diagram" width="66%"/>
 
 Each entity (Author, Publisher, etc) will be a table in our database. The relationship between the tables, or entities, are represented by the *verbs* that mark the arrows connecting entities.
 
@@ -155,11 +155,12 @@ These can be used together to represent the 3 types of relationships:
     - Or variants like: `1..n <-> n`
 
 Here are some examples:
-![alt text](book-uml.png)
+
+<img src="book-uml.png" alt="books db uml" width="66%"/>
 
 Let's revisit the ER diagram for the `book review` problem:
 
-![alt text](<books-er.png>)
+<img src="books-er.png" alt="books er diagram" width="66%"/>
 
 By observing the lines connecting the Book and Translator entities, we can say that books don't **need** to have a translator (`n <-> 0..n`). However, a translator in this database translates at least one book, and possibly many.
 
@@ -191,7 +192,7 @@ Once we know that a relationship exists between certain entities, we need to imp
 
 Let's start with primary keys. For each entity / table, we'll assign them an unique `id` column. Here's an example `books` table:
 
-![alt text](books.png)
+<img src="books.png" alt="books table" width="66%"/>
 
 Now we need to map the relationships. We do that with the help of **foreign keys**.
 
@@ -287,12 +288,106 @@ For these 3 examples, what *data types* and *constraints* (if any) would you set
 TODO
 </details>
 
-### Creating the tables in SQL
+### Creating the tables in SQL - `CREATE TABLE` 
 
-TODO
+> [!IMPORTANT]
+> To follow along this section, create a new MySQL database. In DBeaver, you can do that in `Database Navigator -> world -> Databases -> Create -> Database`
+>
+> ![alt text](image-3.png).
+> 
+> Give a name to your database (for example, `books`) and open a new SQL console:
+>
+> ![alt text](image-4.png)
 
-> [!NOTE]
-> The following sections are drafts
+We now have a better idea of the schema of our tables, so we can finally go ahead and create them.
+
+In SQL, to create a table in our database we use the `CREATE TABLE` command:
+
+```SQL
+CREATE TABLE table_name (
+  column_name data_type optional_constraint,
+  column_name data_type optional_constraint,
+  -- ...
+);
+```
+
+For example, to create the `authors` and `books` tables:
+
+```sql
+CREATE TABLE authors (
+    id INTEGER,
+    name TEXT NOT NULL,
+    country TEXT,
+    date_of_birth DATE,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE books (
+    id INTEGER, 
+    isbn TEXT NOT NULL,
+    title TEXT, 
+    pages INTEGER,
+    published_on DATE,
+    PRIMARY KEY(id), 
+);
+    -- publisher_id INTEGER, 
+    -- FOREIGN KEY(publisher_id) REFERENCES publishers(id) 
+```
+
+Notice we're setting the `NOT NULL` constraint on `authors.name` and setting `authors.id` (and `books.id`) as primary keys.
+
+We can now create the `authored` table:
+
+```sql
+CREATE TABLE authored (
+    author_id INTEGER,
+    book_id INTEGER,
+    FOREIGN KEY(author_id) REFERENCES authors(id), 
+    FOREIGN KEY(book_id) REFERENCES books(id),      
+    PRIMARY KEY (author_id, book_id)
+);
+```
+
+Books and authors are now connected in a *many-to-many* fashion, thanks to both foreign keys.
+
+You may be wondering, what about `publishers`? We should also set up a *many-to-one* relationship between Publishers and Books, but we have already created our `books` table.
+
+That not a problem - we can *alter* a table's schema via the `ALTER TABLE` command. First, we create the `publishers` table:
+
+```sql
+CREATE TABLE publishers (
+    id INTEGER,
+    publisher TEXT,
+    PRIMARY KEY(id)
+);
+```
+
+Now, we can *alter* the `books` table to include its publisher - `publisher_id`, via a foreign key to `publishers`.
+
+```sql
+ALTER TABLE books ADD COLUMN publisher_id INTEGER;
+ALTER TABLE books ADD FOREIGN KEY (publisher_id) REFERENCES publishers (id);
+```
+
+**It's your turn!**
+
+Create the `CREATE TABLE` command to create the `ratings` table. Remember to ensure the rating amount is valid. Hint: [here's](https://www.w3schools.com/mysql/mysql_check.asp) how to create a `CHECK` constraint.
+
+<details>
+<summary>View solution</summary>
+
+```sql
+CREATE TABLE ratings (
+    book_id INTEGER,
+    rating INTEGER CHECK (rating > 0 and rating <= 5),
+    FOREIGN KEY(book_id) REFERENCES books(id)
+);
+```
+
+</details>
+
+
+TODO SUMMARY and conclusion
 
 ## References
 
