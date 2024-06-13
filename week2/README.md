@@ -69,7 +69,7 @@ So `code` is a primary key when it appears in `country`, but a foreign key when 
 > [!NOTE]
 > In the `city` table, the values for column `name` are also unique, so it could also be used as a primary key. However, generally, the primary key will just be called `id`.
 
-### `UNIQUE`, `NOT NULL`, and `DEFAULT`
+### `UNIQUE`, `NOT NULL`, `CHECK`, and `DEFAULT`
 
 Primary key and foreign keys are the so called table level constraints. There are other constraints that apply only to the values of individual columns. 
 
@@ -79,6 +79,8 @@ Here are some of the column constraints that can be set:
     - For example, the `country.name` can be `UNIQUE` (there shouldn't be 2 countries with the same name), even though `code` is the primary key
 - `NOT NULL` columns must have a value. Attempts to insert a row without a value for a `NOT NULL` column will result in a constraint violation and the new row will not be inserted.
     - For example, we may say that `population` of a country is important information and we'd like to prevent having rows that don't set it
+- `CHECK` columns allows checking for a condition 
+    - For example, we could ensure `country.population` must be greater than 0
 - `DEFAULT` columns are configured to have a given value automatically set if the new row does not specify a value for that column.
     - For example, we could set `isOfficial` to *true* ('T') whenever a new row is added to `countrylanguage`, if a value is not specified
 
@@ -208,7 +210,7 @@ Here's the `book` and `ratings` table:
 
 #### Many-to-many
 
-To represent the relationship between Books and Authors, we create a separate table to - `authored`. This table maps the primary key of `books` - `book_id` with the primary key of `authors` - `author_id`. 
+To represent the relationship between Books and Authors, we create a separate table - `authored`. This table maps the primary key of `books` - `book_id` with the primary key of `authors` - `author_id`. 
 
 This helps form a many-to-many relationship between the two original tables - an author (found in the `authors` table) can write multiple books (found in the `books` table), represented in the `authored` table by the multiple entries with their `author_id`. Simultaneously, a book can be written by multiple authors, found in the `authored` table as multiple entries with the same `book_id`.
 
@@ -237,6 +239,9 @@ Hint - you will need:
 TODO
 </details>
 
+> [!NOTE]
+> The process of separating our data in this manner is called **normalizing**. When normalizing, we put each entity in its own table—as we did with authors, books, and others. Any information about a specific entity, for example an authors’s name, goes into the entity’s own table.
+
 ### Data types and constraints
 
 So far we've focusing on the relationships between our tables. That's a purposeful choice - relationships are hard to change once they're in place, so it's important to get them right and make sure they match our problem.
@@ -250,18 +255,50 @@ SQL supports a range of data types across widely used classes of data, such as t
 
 These data types are found across all flavors of SQL (for example SQLite, and PostgreSQL). However, some versions of SQL may support several distinct data types of a particular class while others may only have one.
 
-TODO
+For example, MySQL has the following options to *just* represent integer values (numbers without decimal points): `INTEGER`, `INT`, `SMALLINT`, `TINYINT`, `MEDIUMINT`, `BIGINT` <sup>[[3](#references)]</sup>.
 
-> [!NOTE]
-> The following sections are drafts
+For now, we'll use the most flexible options:
+- **numeric**: `INTEGER` for integers (for example - `21`), `DECIMAL` for numbers with decimal points (for example - `21.02`)
+- **string**: `TEXT`
+- **date and time**: `DATE` for dates (`2024-06-13`), `DATETIME` for dates with time (`2024-06-13T20:59:56.756Z`)
+
+For example, we could store: 
+- `author.name` as `TEXT`
+- `ratings.score` as `INTEGER`
+- `book.published_on` as `DATE`
+
+After we've decided on which data types to use for all columns, we need to think on how to *restrict* them using **constraints**. We usually do this according to what makes in our domain. 
+
+For example, we can set:
+- `book.isbn` as `UNIQUE` (no 2 books have the same ISBN) and `NOT NULL` (a book *must* have an ISBN)
+- `book.published_on` with a `DEFAULT` of "today"
+- `ratings.score` with a `CHECK` constraint ensuring `score` is between `0` and `5`
+
+Now it's your turn! Let's assume that as part of our database we want to store:
+- Authors' date of birth 
+- The price of each book (*must* have)
+- The date and time of when a rating was submitted
+
+For these 3 examples, what *data types* and *constraints* (if any) would you set?
+
+<details>
+<summary>View solution</summary>
+
+TODO
+</details>
 
 ### Creating the tables in SQL
 
 TODO
 
+> [!NOTE]
+> The following sections are drafts
+
 ## References
 
 [2] Adapted from [CS50’s Introduction to Databases with SQL](https://cs50.harvard.edu/sql/2024/notes/2/) 
+
+[3] https://dev.mysql.com/doc/refman/8.4/en/integer-types.html
 
 ### Appendix
 
