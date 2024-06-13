@@ -107,6 +107,8 @@ Let us look at some different ways in which tables can be related to each other 
 
 Consider this case, where each author writes only one book and each book is written by one author. This is called a one-to-one relationship.
 
+TODO: redo images
+
 ![alt text](image.png)
 
 On the other hand, if an author can write multiple books, the relationship is a **one-to-many relationship**.
@@ -178,18 +180,68 @@ Let's see if you got it! Try to answer the following questions:
     - Yes. It can also have no translator or many
 </details>
 
-## References
+> [!TIP]
+> The exact relationships between entities are up to the designer of the database. For example, whether each author can write only one book or multiple books is a decision to be made while designing the database. An ER diagram can be thought of as a tool to communicate these decisions to someone who wants to understand the database and the relationships between its entities.
 
-[2] Adapted from [CS50’s Introduction to Databases with SQL](https://cs50.harvard.edu/sql/2024/notes/2/) 
+### Converting to the Relational Model
+
+Once we know that a relationship exists between certain entities, we need to implement that in our database. For that we'll use [primary keys](#primary-keys) and [foreign keys](#foreign-keys).
+
+Let's start with primary keys. For each entity / table, we'll assign them an unique `id` column. Here's an example `books` table:
+
+![alt text](books.png)
+
+Now we need to map the relationships. We do that with the help of **foreign keys**.
+
+For each type of relationship (many-to-one, one-to-one, many-to-many) there's a way to convert them to the relational model (a SQL table).
+
+#### Many-to-one
+
+To represent the relationship between Books and Ratings, we add the primary key of `books` as a column in the `ratings` table. This helps form a many-to-one relationship between the two tables — a book with a title (found in the `books` table) can have multiple ratings (found in the `ratings` table).
+
+Here's the `book` and `ratings` table:
+
+![alt text](book_rating.png)
+
+> ![IMPORTANT]
+> `id` is a primary key in `books`, but `book_id` is a foreign key in `ratings`.
+
+#### Many-to-many
+
+To represent the relationship between Books and Authors, we create a separate table to - `authored`. This table maps the primary key of `books` - `book_id` with the primary key of `authors` - `author_id`. 
+
+This helps form a many-to-many relationship between the two original tables - an author (found in the `authors` table) can write multiple books (found in the `books` table), represented in the `authored` table by the multiple entries with their `author_id`. Simultaneously, a book can be written by multiple authors, found in the `authored` table as multiple entries with the same `book_id`.
+
+Finally, `author_id` and `book_id` together form the (*composite*) primary key of the `authored` table. This uniquely identifies the relationship and ensures that an author can't be related to the same book more than once, and vice-versa.
+
+Here's the `books`, `authors`, and `authored` tables:
+
+![alt text](<hyf - authored-1.png>)
+
+> [!TIP]
+> Tables like `authored` are called “joint” or “junction” tables. 
 
 > [!NOTE]
-> The following sections are drafts
+> There is no one-to-one relationship in our ER diagram. See the Appendix (TODO) for an example on how to store such a relationship in your tables.
 
-### Data types
+**It's your turn**! 
 
-You've probably noticed by now that in the `world` database, the columns have different types of data. Some column values are filled with numbers - like `country.population`, and`countrylanguage.percentage` - others have text - like `country.name`, and `city.district`. Let's looks a bit deeper into what different data types SQL supports and how they work.
+Based on the ER diagram, design the tables to represent **the relationship between Books and Publishers**. In this exercise, for the Publishers we just need to store their name. 
 
-Data types provide categories for values stored in the tables. Types are assigned to fields through table creation and are responsible for determining some of the attributes and constraints of data stored within a given table.
+Hint - you will need:
+- a `publishers` table
+- to make changes to the `authors` table
+
+<details>
+<summary>View solution</summary>
+TODO
+</details>
+
+### Data types and constraints
+
+So far we've focusing on the relationships between our tables. That's a purposeful choice - relationships are hard to change once they're in place, so it's important to get them right and make sure they match our problem.
+
+However, we also need to think about what data we're storing in our tables - *data types* - and to think of what restrictions we want to impose in them - *constraints*.
 
 SQL supports a range of data types across widely used classes of data, such as the following:
 - Numeric types
@@ -198,6 +250,19 @@ SQL supports a range of data types across widely used classes of data, such as t
 
 These data types are found across all flavors of SQL (for example SQLite, and PostgreSQL). However, some versions of SQL may support several distinct data types of a particular class while others may only have one.
 
-Here are the N main data types supported by MySQL;
+TODO
+
+> [!NOTE]
+> The following sections are drafts
+
+### Creating the tables in SQL
 
 TODO
+
+## References
+
+[2] Adapted from [CS50’s Introduction to Databases with SQL](https://cs50.harvard.edu/sql/2024/notes/2/) 
+
+### Appendix
+
+TOO add one-to-one example
