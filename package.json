@@ -1,0 +1,33 @@
+{
+  "name": "sql-database",
+  "version": "1.0.0",
+  "description": "> [!WARNING]\r > This module is under development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "spell-check": "cspell \"**/*\"",
+    "lint:ls": "eslint . --ext .js",
+    "lint:md": "markdownlint \"**/*.md\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HackYourFutureBelgium/sql-database.git"
+  },
+  "keywords": [
+    "etefa"
+  ],
+  "author": "etefa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HackYourFutureBelgium/sql-database/issues"
+  },
+  "homepage": "https://github.com/HackYourFutureBelgium/sql-database#readme",
+  "devDependencies": {
+    "cspell": "^8.8.4",
+    "eslint": "^9.4.0",
+    "markdownlint-cli": "^0.26.2",
+    "prettier": "^3.3.2"
+  }
+}

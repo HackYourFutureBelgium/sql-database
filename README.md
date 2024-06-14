@@ -5,7 +5,7 @@
 
 Databases module of HackYourFuture Belgium's Sunday classes, 2024 edition
 
-In the world of data management and database systems, SQL (Structured Query Language) is fundamental technology that plays a crucial role. SQL is a standardized programming language used for managing and querying relational databases, while MySQL is one of the most popular open-source relational database management systems that can be used with various programming languages. 
+In the world of data management and database systems, SQL (Structured Query Language) is fundamental technology that plays a crucial role. SQL is a standardized programming language used for managing and querying relational databases, while MySQL is one of the most popular open-source relational database management systems that can be used with various programming languages.
 
 In this module, we will delve into the world of SQL and MySQL, exploring their importance, usage, and key concepts.
 
@@ -28,8 +28,8 @@ In this module, you will learn the fundamentals of Databases, with a focus relat
 
 ## Agenda
 
-| Week | Topics                                                                                                    | Readings | Exercises | Lesson Plan |
-|------|-----------------------------------------------------------------------------------------------------------|----------|-----------|-------------|
-| 1    | - Introduction to Databases <br> - Introduction to the relational model <br> - Introduction to SQL: retrieving data | [Week 1 Readings](./week1/README.md)     | [Week 1 Exercises](./week1/EXERCISES.md)      | [Week 1 Lessonplan](./week1/LESSONPLAN.md)        |
-| 2    | - Introduction to Domain Modeling <br> - Implementation of a domain: identifiers, constraints, relationships   | TODO     | TODO      | TODO        |
-| 3    | - [To be defined, more advanced topics]                                                                   | TODO     | TODO      | TODO        |
+| Week | Topics                                                                                                              | Readings                             | Exercises                                | Lesson Plan                                |
+| ---- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ---------------------------------------- | ------------------------------------------ |
+| 1    | - Introduction to Databases <br> - Introduction to the relational model <br> - Introduction to SQL: retrieving data | [Week 1 Readings](./week1/README.md) | [Week 1 Exercises](./week1/EXERCISES.md) | [Week 1 Lessonplan](./week1/LESSONPLAN.md) |
+| 2    | - Introduction to Domain Modeling <br> - Implementation of a domain: identifiers, constraints, relationships        | TODO                                 | TODO                                     | TODO                                       |
+| 3    | - [To be defined, more advanced topics]                                                                             | TODO                                 | TODO                                     | TODO                                       |

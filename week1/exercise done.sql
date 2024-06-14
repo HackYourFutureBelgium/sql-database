@@ -1,0 +1,1 @@
+select name from country where Population > 8000000;

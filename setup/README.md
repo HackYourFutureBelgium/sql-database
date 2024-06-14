@@ -1,13 +1,14 @@
 # Setup for Databases module
 
 To follow this module you need to prepare 3 things:
+
 - [Install MySQL](#installing-my-sql), the SQL database you will use
 - [Install DBeaver](#installing-dbeaver), an application to ease interacting with the database
 - [Setup the `world` database](#setting-up-the-world-database) in DBeaver
 
-This guide provides step-by-step instructions on how to install these on different operating systems: macOS, Ubuntu, and Windows. 
+This guide provides step-by-step instructions on how to install these on different operating systems: macOS, Ubuntu, and Windows.
 
->[!WARNING]
+> [!WARNING]
 > If you're using a different operating system, please find your way through other resources.
 
 ## Installing My SQL
@@ -99,7 +100,7 @@ $ sudo service mysql start
 
 3. During installation, set up a root password for MySQL.
 
-4. Choose the components you want to install. Select *at least* MySQL Server.
+4. Choose the components you want to install. Select _at least_ MySQL Server.
 
 5. Once the installation is complete, start the MySQL service using the MySQL Command Line Client or MySQL Workbench.
 
@@ -118,7 +119,7 @@ You will be prompted to enter the root password you set during installation. If 
 
 ## Installing DBeaver
 
-You can interact with a MySQL database directly from your terminal using the `mysql` shell. However, it's more convenient to use a separate application - a SQL client. 
+You can interact with a MySQL database directly from your terminal using the `mysql` shell. However, it's more convenient to use a separate application - a SQL client.
 
 DBeaver is a free, open source SQL client that works on macOS, Linux, and Windows that supports MySQL and many others SQL database engines. We recommend installing and using it during the module.
 
@@ -154,7 +155,7 @@ For the exercises we'll be using an example database (`world`), so we must set i
 
 To install the sample database, follow these steps:
 
-1. If you haven't already, clone this repository and enter its directory: 
+1. If you haven't already, clone this repository and enter its directory:
 
 ```shell
 $ git clone git@github.com:HackYourFutureBelgium/sql-database.git
@@ -169,7 +170,7 @@ $ mysql -u "root" -p < "week1/databases/world.sql" # enter your password when as
 
 This will connect to your MySQL server and execute the `world.sql` script.
 
-3. Connect again to the MySQL server to confirm the `world` database is installed correctly. 
+3. Connect again to the MySQL server to confirm the `world` database is installed correctly.
 
 ```shell
 $ mysql -u "root" -p # enter your password when asked
@@ -214,7 +215,7 @@ You should now see the `world` database and its tables on the Database Navigator
 
 ![alt text](./images/new-sql-console.png)
 
-- Then write a sample command: 
+- Then write a sample command:
 
 ```sql
 SHOW TABLES;
