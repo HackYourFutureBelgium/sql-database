@@ -374,7 +374,7 @@ ALTER TABLE books ADD FOREIGN KEY (publisher_id) REFERENCES publishers(id);
 
 **It's your turn!**
 
-Create the `CREATE TABLE` command to create the `ratings` table. Remember to ensure the rating amount is valid. Hint: [here's](https://www.w3schools.com/mysql/mysql_check.asp) how to create a `CHECK` constraint.
+Write the `CREATE TABLE` command to create the `ratings` table. Remember to ensure the rating amount is valid. Hint: [here's](https://www.w3schools.com/mysql/mysql_check.asp) how to create a `CHECK` constraint.
 
 <details>
 <summary>View solution</summary>
