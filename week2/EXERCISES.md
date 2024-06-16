@@ -44,13 +44,21 @@ For each type of plant it still matters to know the pests that affect it (for ex
 
 **Exercise: design an [ER diagram](./README.md#entity-relationships-diagrams) to represent needs of John.** Remember the tips from [Exercise 1](#exercise-1-company).
 
-## Exercise 3: TODO
+## Exercise 3: Formula 1
 
-TODO
+You are now tasked with creating a database for a simplified version of a Formula 1 season.
+
+This time, the conceptual model is already complete.
+
+**Exercise:** create a database for Formula 1 by following the diagram and writing a set of `CREATE TABLE` statements in a `s1.sql` file. 
+
+![alt text](images/f1.png)
 
 ## Exercise 4: LinkedIn<sup>[[2](#references)]</sup>
 
-Your task at hand is to create a database for LinkedIn from scratch, as by writing a set of `CREATE TABLE ` statements in a `linkedin.sql` file. The implementation details are up to you, though you should minimally ensure that your database meets the platform’s specification and that it can represent the given sample data.
+Now, you'll create a database from scratch.
+
+Create a database representing LinkedIn from scratch, as by writing a set of `CREATE TABLE ` statements in a `linkedin.sql` file. The implementation details are up to you, though you should minimally ensure that your database meets the platform’s specification and that it can represent the given sample data.
 
 #### Users
 
@@ -95,6 +103,15 @@ Connections with Schools
     - The start date of their affiliation (i.e., the date they began work with the company)
     - The end date of their affiliation (i.e., when left the company), if applicable
     - The title they held while affiliated with the company
+
+Your database should be able to represent…
+
+- A user, Alan Garber, whose username is “alan” and password is “password”.
+- A user, Reid Hoffman whose username is “reid” and password is “password”.
+- A school, Harvard University, which is a university located in Cambridge, Massachusetts, founded in 1636.
+- A company, LinkedIn, which is a technology company headquartered in Sunnyvale, California.
+- Alan Garber’s undergraduate education at Harvard, pursuing a BA from September 1st, 1973 to June 1st, 1976.
+- Reid Hoffman’s employment with LinkedIn as its CEO and Chairman, from January 1st, 2003 to February 1st, 2007.
 
 ## Submitting your work
 
