@@ -103,15 +103,15 @@ Let us look at some different ways in which tables can be related to each other 
 
 Consider this case, where each author writes only one book and each book is written by one author. This is called a one-to-one relationship.
 
-<img src="./image.png" alt="one to one relationship" width="66%"/>
+<img src="images/./image.png" alt="one to one relationship" width="66%"/>
 
 On the other hand, if an author can write multiple books, the relationship is a **one-to-many relationship**.
 
-<img src="./image-1.png" alt="one to many relationship" width="66%"/>
+<img src="images/./image-1.png" alt="one to many relationship" width="66%"/>
 
 But actually, neither of those reflect reality. Not only can one author write multiple books, but books can also be co-written by multiple authors. This is a **many-to-many** relationship.
 
-<img src="./image-2.png" alt="many to many relationship" width="66%"/>
+<img src="images/./image-2.png" alt="many to many relationship" width="66%"/>
 
 > [!IMPORTANT]
 > There are 3 types of relationships in the relational model:
@@ -129,7 +129,7 @@ Also, it's relatively simple to convert ER diagrams to the Relational Model (tha
 
 Here's an ER diagram for the `book review` problem:
 
-<img src="books-er.png" alt="books er diagram" width="66%"/>
+<img src="images/books-er.png" alt="books er diagram" width="66%"/>
 
 Each entity (Author, Publisher, etc.) will be a table in our database. The relationship between the tables, or entities, is represented by the *verbs* that mark the arrows connecting entities.
 
@@ -148,11 +148,11 @@ These can be used together to represent the 3 types of relationships:
 
 Here are some examples:
 
-<img src="book-uml.png" alt="books db uml" width="40%"/>
+<img src="images/book-uml.png" alt="books db uml" width="40%"/>
 
 Let's revisit the ER diagram for the `book review` problem:
 
-<img src="books-er.png" alt="books er diagram" width="66%"/>
+<img src="images/books-er.png" alt="books er diagram" width="66%"/>
 
 By observing the lines connecting the Book and Translator entities, we can say that books don't **need** to have a translator (`n <-> 0..n`). However, a translator in this database translates at least one book, and possibly many.
 
@@ -184,7 +184,7 @@ Once we know that a relationship exists between certain entities, we need to imp
 
 Let's start with primary keys. For each entity/table, we'll assign them a unique `id` column. Here's an example `books` table:
 
-<img src="books.png" alt="books table" width="50%"/>
+<img src="images/books.png" alt="books table" width="50%"/>
 
 Now we need to map the relationships. We do that with the help of **foreign keys**.
 
@@ -211,7 +211,7 @@ Finally, `author_id` and `book_id` together form the (*composite*) primary key o
 
 Here's the `books`, `authors`, and `authored` tables:
 
-![alt text](<hyf - authored-1.png>)
+![alt text](<./images/hyf - authored-1.png>)
 
 > [!TIP]
 > Tables like `authored` are called “joint” or “junction” tables.
@@ -291,11 +291,11 @@ For these 3 examples, what *data types* and *constraints* (if any) would you set
 > [!IMPORTANT]
 > To follow along this section, create a new MySQL database. In DBeaver, you can do that in `Database Navigator -> world -> Databases -> Create -> Database`
 >
-> <img src="image-3.png" alt="creating new database in dbeaver" width="66%"/>
+> <img src="images/image-3.png" alt="creating new database in dbeaver" width="66%"/>
 > 
 > Give a name to your database (for example, `books`) and open a new SQL console:
 >
-> <img src="image-4.png" alt="creating new database in dbeaver" width="66%"/>
+> <img src="images/image-4.png" alt="creating new database in dbeaver" width="66%"/>
 
 We now have a better idea of the schema of our tables, so we can finally go ahead and create them.
 
