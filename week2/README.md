@@ -16,21 +16,21 @@ https://xkcd.com/327/
 Let’s return to our example `world` database introduced in [Week 1](../week1/README.md). Recall that we had three tables: `country`, `city`, and `countrylanguage`.
 
 Each of these tables has a column (or set of columns) that uniquely identifies each row of that table:
-    - `code` from `country`
-    - `id` from `city`
-    - `country_code` and `language` from `countrylanguage`
+- `code` from `country`
+- `id` from `city`
+- `country_code` and `language` from `countrylanguage`
 
 These special columns are called **primary keys**.
 
 Primary keys have a few requirements:
-    - None of the values can be `NULL`.
-    - Each value must be unique (that is, you can’t have two countries with the same `code` in the `country` table).
-    - A table cannot have more than one primary key.
+- None of the values can be `NULL`.
+- Each value must be unique (that is, you can’t have two countries with the same `code` in the `country` table).
+- A table cannot have more than one primary key.
 
 Sometimes, having a single column uniquely identify a row is not enough. In this case, multiple columns can be used together to form a **composite primary key**. That's the scenario we see in the `countrylanguage` table:
-    - There can be multiple languages per country (so `country_code` could not be a primary key)
-    - The same language can be used in multiple countries (so `language` could not be a primary key)
-    - Per each country, we only expect one entry per language. A composite key of `country_code` and `language` is useful
+- There can be multiple languages per country (so `country_code` could not be a primary key)
+- The same language can be used in multiple countries (so `language` could not be a primary key)
+- Per each country, we only expect one entry per language. A composite key of `country_code` and `language` is useful
 
 ### Foreign Keys
 
