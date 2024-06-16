@@ -229,7 +229,16 @@ Hint - you will need:
 
 <details>
 <summary>View solution</summary>
-TODO
+<br>
+
+Create `publishers` table:
+- **Primary Key**: `id`
+
+Alter `books` table:
+- Add column `publisher_id`, foreign key to `publishers` 
+
+![alt text](<images/hyf - books-publishers.png>)
+
 </details>
 
 > [!NOTE]
