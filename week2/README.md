@@ -148,7 +148,7 @@ These can be used together to represent the 3 types of relationships:
 
 Here are some examples:
 
-<img src="book-uml.png" alt="books db uml" width="66%"/>
+<img src="book-uml.png" alt="books db uml" width="40%"/>
 
 Let's revisit the ER diagram for the `book review` problem:
 
