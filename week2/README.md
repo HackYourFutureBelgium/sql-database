@@ -196,7 +196,7 @@ To represent the relationship between Books and Ratings, we add the primary key 
 
 Here's the `books` and `ratings` table:
 
-![alt text](book_rating.png)
+![alt text](images/book_rating.png)
 
 > [!IMPORTANT]
 > `id` is a primary key in `books`, but `book_id` is a foreign key in `ratings`.

@@ -33,3 +33,7 @@ In this module, you will learn the fundamentals of Databases, with a focus relat
 | 1    | - Introduction to Databases <br> - Introduction to the relational model <br> - Introduction to SQL: retrieving data | [Week 1 Readings](./week1/README.md)     | [Week 1 Exercises](./week1/EXERCISES.md)      | [Week 1 Lessonplan](./week1/LESSONPLAN.md)        |
 | 2    | - Keys and constraints <br> - Creating your first database   |  [Week 2 Readings](./week2/README.md)     | [Week 2 Exercises](./week2/EXERCISES.md)       | [Week 2 Lessonplan](./week2/LESSONPLAN.md)         |
 | 3    | - [To be defined, more advanced topics]                                                                   | TODO     | TODO      | TODO        |
+
+## License
+
+HackYourFuture - SQL Databases Module © 2024 by HackYourFutureBelgium is licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/).
