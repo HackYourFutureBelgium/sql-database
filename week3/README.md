@@ -104,6 +104,44 @@ select * from author_book_title where name = 'Haruki Murakami';
 
 A view, being a virtual table, does not consume much more disk space to create. The data within a view is still stored in the underlying tables, but still accessible through this simplified view.
 
+> [!IMPORTANT]
+> Views cannot be updated because views do not have any data in the way that tables do. Views actually pull data from the underlying tables each time they are queried. 
+> This means that when an underlying table is updated, the next time the view is queried, it will display updated data from the table.
+
+Views can be also used to enhance database security by limiting access to certain data.
+
+Imagine we want to share `books` data with an analyst, whose job is to find the most popular authors. Let's assume it's would be irrelevant and indeed, not secure to give them the date of birth of individual authors - it's personal data.
+
+Views can be handy in this situation — we can share with the analyst a view containing the author information, but not their date of birth or oder sensitive data.
+
+We can even go one step further and return a `date_of_birth` column with a redacted value. This indicates to the analyst that we have `date_of_birth` data in the database, but it has been redacted for security.
+
+```sql
+CREATE VIEW authors_analysis as 
+SELECT id, name, country, 'redacted' as date_of_birth from authors;
+```
+
+We can now query this view:
+
+```sql
+SELECT * FROM authors_analysis;
+
+-- +----+------------------------+----------------+---------------+
+-- | id | name                   | country        | date_of_birth |
+-- +----+------------------------+----------------+---------------+
+-- |  1 | Gabriel Garcia Marquez | Colombia       | redacted      |
+-- |  2 | Haruki Murakami        | Japan          | redacted      |
+-- |  3 | George Orwell          | United Kingdom | redacted      |
+-- |  4 | J.K. Rowling           | United Kingdom | redacted      |
+-- |  5 | J.R.R. Tolkien         | United Kingdom | redacted      |
+-- (...)
+-- 15 rows in set (0,00 sec)
+```
+
+> [!TIP]
+> Views created with `CREATE VIEW` will be added to the database schema. 
+> To create views that are *not* stored in the database scheme, we can use `CREATE TEMPORARY VIEW`. This creates a view that exists only for the duration of our connection to the database. 
+
 ## Triggers
 
 TODO
