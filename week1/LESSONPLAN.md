@@ -1,4 +1,4 @@
-# Databses - Week 1
+# Databases - Week 1
 
 ## Before Class
 
