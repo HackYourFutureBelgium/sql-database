@@ -142,9 +142,116 @@ SELECT * FROM authors_analysis;
 > Views created with `CREATE VIEW` will be added to the database schema. 
 > To create views that are *not* stored in the database scheme, we can use `CREATE TEMPORARY VIEW`. This creates a view that exists only for the duration of our connection to the database. 
 
+TODO exercise
+
 ## Triggers
 
-TODO
+Triggers execute a specified function when certain operations are performed on the table (`INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`). 
+
+For example, this can be useful to keep track of changes. Let's say we want to keep track of when an author changes their `date_of_birth`, to monitor if its just a mistake or potentially bad data. We'll keep this in a new table `authors_date_of_birth_audit`.
+
+First, we create the `authors_date_of_birth_audit` table:
+
+```sql
+CREATE TABLE authors_date_of_birth_audit (
+	id INT AUTO_INCREMENT,
+	author_id INT,
+	date_of_birth TEXT,
+	updated_at DATE,
+	PRIMARY KEY(id),
+	FOREIGN KEY(author_id) REFERENCES authors(id)
+);
+```
+
+Then, we create the trigger with `CREATE_TRIGGER`:
+
+```sql
+-- Upon INSERT operation on authors table, add date_of_birth to audit table
+CREATE TRIGGER insert_authors_date_of_birth_audit
+AFTER INSERT ON authors
+FOR EACH ROW
+BEGIN
+  INSERT INTO authors_date_of_birth_audit (author_id, date_of_birth, updated_at)
+  VALUES (NEW.id, NEW.date_of_birth, CURRENT_DATE);
+END;
+```
+
+Then we try inserting a new author:
+
+```sql
+INSERT INTO authors (id, name, country, date_of_birth) VALUES (16, 'Manuel Paulo', 'Portugal', '1883-07-03');
+```
+
+We should see the `date_of_birth` value in both `authors` and `authors_date_of_birth_audit` tables:
+
+```sql
+SELECT * FROM authors WHERE NAME = 'Manuel Paulo';
+
+-- +----+--------------+----------+---------------+
+-- | id | name         | country  | date_of_birth |
+-- +----+--------------+----------+---------------+
+-- | 16 | Manuel Paulo | Portugal | 1883-07-03    |
+-- +----+--------------+----------+---------------+
+
+SELECT * FROM authors_date_of_birth_audit;
+
+-- +----+-----------+---------------+------------+
+-- | id | author_id | date_of_birth | updated_at |
+-- +----+-----------+---------------+------------+
+-- |  1 |        16 | 1883-07-03    | 2024-06-20 |
+-- +----+-----------+---------------+------------+
+```
+
+What happens if we update an author's date of birth now? 
+
+Actually, that isn't covered by by our trigger. Notice the trigger was created with the `AFTER INSERT ON authors` statement, meaning it is only executed if a new row is inserted in the `authors` table.
+
+To keep track of updates to the name, we need to add a new trigger:
+
+```sql
+CREATE TRIGGER update_authors_date_of_birth_audit
+AFTER UPDATE ON authors
+FOR EACH ROW
+BEGIN
+  -- Check if the date_of_birth was actually changed
+  IF OLD.date_of_birth != NEW.date_of_birth THEN
+    INSERT INTO authors_date_of_birth_audit (author_id, date_of_birth, updated_at)
+    VALUES (NEW.id, NEW.date_of_birth, CURRENT_DATE);
+  END IF;
+END;
+```
+
+Now if we update Manuel Paulo's date of birth:
+
+```sql
+UPDATE authors SET date_of_birth = '1954-01-01' WHERE id = 16;
+```
+
+We can see the updated `date_of_birth` in the `authors` table, and the full history of updates in the `update_authors_date_of_birth_audit` table:
+
+```sql
+SELECT * FROM authors WHERE NAME = 'Manuel Paulo';
+
+-- +----+--------------+----------+---------------+
+-- | id | name         | country  | date_of_birth |
+-- +----+--------------+----------+---------------+
+-- | 16 | Manuel Paulo | Portugal | 1954-01-01    | <-- updated
+-- +----+--------------+----------+---------------+
+
+SELECT * FROM authors_date_of_birth_audit;
+
+-- +----+-----------+---------------+------------+
+-- | id | author_id | date_of_birth | updated_at |
+-- +----+-----------+---------------+------------+
+-- |  1 |        16 | 1883-07-03    | 2024-06-20 | <-- initial date of birth 
+-- |  2 |        16 | 1954-01-01    | 2024-06-20 | <-- latest date of birth
+-- +----+-----------+---------------+------------+
+```
+
+> [!TIP]
+> Triggers have many functionalities and use cases - this was just an example. For a more comprehensive overview of triggers in MySQL, check out their [documentation](https://dev.mysql.com/doc/refman/8.4/en/trigger-syntax.html).
+
+TODO exercise
 
 ## Indexes
 
