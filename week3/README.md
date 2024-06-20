@@ -19,7 +19,7 @@ Thus far, we have learned about concepts that allow us to design complex databas
 
 Let’s go back to the `books` database. Here is a snapshot of tables from this database.
 
-To find a book written by the author Haruki Murakami, we would need to go each of through the three table above — first finding the author’s ID, then the corresponding book IDs and then the book titles. Instead, is there a way to put together related information from the three tables in a single view?
+To find a book written by the author Haruki Murakami, we would need to go each of the three table above — first finding the author’s ID, then the corresponding book IDs and then the book titles. Instead, is there a way to put together related information from the three tables in a single view?
 
 Yes, we can use the `JOIN` command to combine rows from two or more tables based on a related column between them. Here is a SQL query to answer the question "What books were written by Haruki Murakami?":
 
@@ -95,7 +95,7 @@ select * from author_book_title where name = 'Haruki Murakami';
 -- 1 row in set (0,00 sec)
 ```
 
-> [IMPORTANT]
+> [!IMPORTANT]
 > A view is a virtual table defined by a query.
 > - simplifying: putting together data from different tables to be queried more simply,
 > - aggregating: running aggregate functions, like finding the sum, and storing the results,
@@ -110,9 +110,9 @@ A view, being a virtual table, does not consume much more disk space to create. 
 
 Views can be also used to enhance database security by limiting access to certain data.
 
-Imagine we want to share `books` data with an analyst, whose job is to find the most popular authors. Let's assume it's would be irrelevant and indeed, not secure to give them the date of birth of individual authors - it's personal data.
+Imagine we want to share `books` data with an analyst, whose job is to find the most popular authors. Let's assume it would be irrelevant and, indeed, not secure to give them the date of birth of individual authors - it's personal data.
 
-Views can be handy in this situation — we can share with the analyst a view containing the author information, but not their date of birth or oder sensitive data.
+Views can be handy in this situation — we can share with the analyst a view containing the author information, but not their date of birth or other sensitive data.
 
 We can even go one step further and return a `date_of_birth` column with a redacted value. This indicates to the analyst that we have `date_of_birth` data in the database, but it has been redacted for security.
 
@@ -140,7 +140,7 @@ SELECT * FROM authors_analysis;
 
 > [!TIP]
 > Views created with `CREATE VIEW` will be added to the database schema. 
-> To create views that are *not* stored in the database scheme, we can use `CREATE TEMPORARY VIEW`. This creates a view that exists only for the duration of our connection to the database. 
+> To create views that are *not* stored in the database schema, we can use `CREATE TEMPORARY VIEW`. This creates a view that exists only for the duration of our connection to the database. 
 
 TODO exercise
 
@@ -148,7 +148,7 @@ TODO exercise
 
 Triggers execute a specified function when certain operations are performed on the table (`INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`). 
 
-For example, this can be useful to keep track of changes. Let's say we want to keep track of when an author changes their `date_of_birth`, to monitor if its just a mistake or potentially bad data. We'll keep this in a new table `authors_date_of_birth_audit`.
+For example, this can be useful to keep track of changes. Let's say we want to keep track of when an author changes their `date_of_birth`, to monitor if it's just a mistake or potentially bad data. We'll keep this in a new table `authors_date_of_birth_audit`.
 
 First, we create the `authors_date_of_birth_audit` table:
 
@@ -313,7 +313,7 @@ On this run, the time taken is significantly shorter - in fact, 36 times shorter
 
 You may be asking yourself: "that's so much faster - why don't we create an index for every column in every table?"
 
-Indexes are indeed helpful, but there are trade-offs associated — they occupy additional space in the database, so while we gain query speed, we do lose space.
+Indexes are indeed helpful, but there are trade-offs associated — they occupy additional space in the database, so while we gain query speed, we do also require increased storage space.
 
 When we create an index, this tells the database engine to perform some special under-the-hood optimization. This optimization works by making a copy of the data in a data structure called a B Tree - maintaining this copy of the data takes up memory. 
 
