@@ -379,12 +379,139 @@ TODO
 
 ## Transactions
 
-TODO
+Utilization of SQL can sometimes result in some problems. You can imagine a case where multiple users could be accessing the same database and executing commands at the same time.
+
+This could result in glitches where code is interrupted by other people’s actions. This could result in a loss of data.
+
+For example, consider a bank’s database. The following is a view of the table accounts that stores account balances:
+
+![alt text](image.png)
+
+A common operation in a banking system could be sending money from one account to the other. For example, let's assume Alice is trying to send $10 to Bob.
+
+To complete this operation, we would need to add $10 to Bob’s account and also subtract $10 from Alice’s account. 
+
+If someone sees the status of the `accounts` database after the first update to Bob’s account but before the second update to Alice’s account, they could get an incorrect understanding of the total amount of money held by the bank.
+
+To an outside observer, it should seem like the different parts of this operation a happen all at once. 
+
+To achieve this we can rely on **transactions**. In database terminology, a **transaction** is an individual unit of work — something that cannot be broken down into smaller pieces.
+
+To move $10 from Alice’s account to Bob’s, we can write the following transaction.
+
+```sql
+BEGIN TRANSACTION;
+UPDATE "accounts" SET "balance" = "balance" + 10 WHERE "id" = 2; -- Adding money to Bob's account
+UPDATE "accounts" SET "balance" = "balance" - 10 WHERE "id" = 1; -- Removing money from Alice's account
+COMMIT;
+```
+
+Notice the `UPDATE` statements are written in between the commands to begin the transaction and to commit it. If we execute the query after writing the `UPDATE` statements, but without committing, neither of the two `UPDATE` statements will be run! This helps keep the transaction atomic. By updating our table in this way, we are unable to see the intermediate steps.
+
+> [!IMPORTANT]
+> Transactions are atomic units of work that can be **committed** or **rolled back**. When a transaction makes multiple changes to the database, either all the changes succeed when the transaction is committed, or all the changes are undone when the transaction is rolled back. 
+> Database transactions have properties that are collectively known by the acronym [ACID](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_acid), for atomicity, consistency, isolation, and durability. 
 
 ## Access Controls
 
-TODO
+> [!NOTE]
+> To follow along this section you can use your MySQL database server via the terminal or DBeaver.
+
+So far, we logged into MySQL using the `root` user or `debian-sys-maint` in Ubuntu. However, we can also create more users and give them some kind of access to the database. 
+
+Let’s create a new user called `john` (feel free to try with your own name here)!
+
+```sql
+CREATE USER john IDENTIFIED by 'a-password';
+```
+
+We can log into MySQL now using the new user and password, in the same way we did with the root user previously.
+
+```shell
+$ mysql -u john -p # when asked, enter password for john
+
+#  Note: you can also login via DBeaver
+```
+
+When we create this new user, by default it has very few privileges. Try the following query.
+
+```sql
+SHOW DATABASES;
+
+-- +--------------------+
+-- | Database           |
+-- +--------------------+
+-- | information_schema |
+-- | performance_schema |
+-- +--------------------+
+-- 2 rows in set (0,01 sec)
+```
+
+This only displays some of the default databases in the server. The `world` database or others you have set up are not listed.
+
+If we log in again with the root user and run the above query, many more databases show up! This is because the root user has access to most everything in the server.
+
+```shell
+$ mysql -u root -p # when asked, enter password for root
+```
+
+```sql
+SHOW DATABASES;
+
+-- +--------------------+
+-- | Database           |
+-- +--------------------+
+-- | books              |
+-- | information_schema |
+-- | linkedin           |
+-- (...)
+-- | performance_schema |
+-- | sys                |
+-- | world              |
+-- +--------------------+
+-- Note: your results may be different
+```
+
+Let us look at how we can grant access to users by discussing an example from the [Views](#views) section. 
+
+We created a view called `authors_analysis` which anonymized the `date_of_birth` of the authors, intending to share only this view with an analyst or other user.
+
+If we wanted to share the analysis view with the user we just created, we would do the following while logged in as the root user.
+
+```sql
+GRANT SELECT ON books.authors_analysis TO john;
+```
+
+We can now login as `john` again and access the view:
+
+```sql
+USE books; -- choose books database
+
+SELECT * FROM authors_analysis;
+
+-- +----+------------------------+----------------+---------------+
+-- | id | name                   | country        | date_of_birth |
+-- +----+------------------------+----------------+---------------+
+-- |  1 | Gabriel Garcia Marquez | Colombia       | redacted      |
+-- |  2 | Haruki Murakami        | Japan          | redacted      |
+-- |  3 | George Orwell          | United Kingdom | redacted      |
+-- (...)
+```
+
+However, the only part that this user can access is the `authors_analysis` view. We can now see the data in this view, but not from the original `authors` table! 
+
+```sql
+SELECT * FROM authors;
+
+-- ERROR 1142 (42000): SELECT command denied to user 'john'@'localhost' for table 'authors'
+```
+
+> [!TIP] MySQL's access control allow us to have have multiple users accessing the database but only allow some to access confidential data.
 
 ## SQL Injection
 
 TODO
+
+## References
+
+Adapted from Harvard's Introduction to Databases with SQL, classes [5](https://cs50.harvard.edu/sql/2024/notes/5/), and [6](https://cs50.harvard.edu/sql/2024/notes/6/).
