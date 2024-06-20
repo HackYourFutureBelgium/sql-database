@@ -255,7 +255,127 @@ TODO exercise
 
 ## Indexes
 
+> [!NOTE]
+> In this section we'll use a new database `movies` that you can download from TODO.
+> You can connect to it using DBeaver. TODO
+> TODO explain this is SQLite
+
+Indexes can be utilized to speed up our queries.
+
+It's a database with movie data extracted from IMDb, but most importantly, it's *very large*. To confirm, we can check the number of entries in the `movies` table:
+
+```sql
+SELECT count(*) FROM movies;
+
+-- +----------+
+-- | count(*) |
+-- +----------+
+-- |   419006 |
+-- +----------+
+-- 1 row in set (0,00 sec)
+```
+
+There are almost 420 thousand books in the table. This means that some of our queries start to take longer. 
+
+For example, to find the movie titled 'Cars':
+
+```sql
+SELECT * FROM movies WHERE title = 'Cars';
+
+-- +--------+-------+------+
+-- |   id   | title | year |
+-- +--------+-------+------+
+-- | 317219 | Cars  | 2006 |
+-- +--------+-------+------+
+-- Run Time: 0.036s
+```
+
+We can see it took 0.036 seconds to complete. This is quite fast, but it's significantly slower than the queries in the `world` and other databases we used.
+
+Under the hood, when the query to find 'Cars' was run, we triggered a scan of the table movies — that is, the table `movies` was scanned top to bottom, one row at a time, to find all the rows with the title 'Cars'.
+
+We can optimize this query to be more efficient than a scan. In the same way that textbooks often have an index, databases tables can have an index as well. An index, in database terminology, is a structure used to speed up the retrieval of rows from a table.
+
+We can use the following command to create an index for the "title" column in the `movies` table.
+
+```sql
+CREATE INDEX title_index ON movies (title);
+```
+
+After creating this index, we run the query to find the movie titled Cars again. 
+
+```sql
+SELECT * FROM movies WHERE title = 'Cars';
+-- Run Time: 0.001s
+```
+
+On this run, the time taken is significantly shorter - in fact, 36 times shorter than the previous one.
+
+You may be asking yourself: "that's so much faster - why don't we create an index for every column in every table?"
+
+Indexes are indeed helpful, but there are trade-offs associated — they occupy additional space in the database, so while we gain query speed, we do lose space.
+
+When we create an index, this tells the database engine to perform some special under-the-hood optimization. This optimization works by making a copy of the data in a data structure called a B Tree - maintaining this copy of the data takes up memory. 
+
+It also takes longer to insert data into a column that has an index, because both the table and index need to be updated - adding data to B-trees is slower.
+
+> [!TIP]
+> In most database engines if we specify that column as primary key, an index will automatically be created via which we can search for the primary key. 
+> However, for regular columns like "title", there would be no automatic optimization.
+
+We then need to be mindful of where we add indexes.
+
+To help illustrate this, let's look at another query - this time one that spans across multiple tables.
+
+We run the following query to find all movies starring Tom Hanks:
+
+```sql
+select * from movies m join stars s 
+    on m.id = s.movie_id  -- (1)
+    join people p 
+        on p.id = s.person_id 
+where name = 'Tom Hanks'; -- (2)
+
+-- Run Time:1.262s
+```
+
+This query took over 1 second to complete - that's a lot. That is because the query requires 2 scans - of the `people` and `stars` table. In particular:
+
+1. It scans `stars` table looking for `movies` where `movie.id` matches `stars.movie_id`
+2. It scans `people` table looking for `people` where `people.name` matches 'Tom Hanks'
+
+The table `movies` is not scanned because we're searching `movies` by its `id`, the primary key of `movies`, so an index is automatically used.
+
+Since we may need to perform similar searches for other actors - for example, to power the search bar in IMDb's website - we can consider adding indexes to optimize this query.
+
+We can then add 2 indexes on `stars.person` and `people.name` - the columns for which our query needs to perform a scan.
+
+```sql
+CREATE INDEX stars_person_index ON stars (person_id);
+CREATE INDEX people_name_index ON people (name);
+```
+
+Now, if we run the same query:
+
+```sql
+select * from movies m join stars s 
+    on m.id = s.movie_id  -- (1)
+    join people p 
+        on p.id = s.person_id 
+where name = 'Tom Hanks'; -- (2)
+
+-- Run Time: 0.004s
+```
+
+Now our query is *300 times* faster than before.
+
 TODO
+> [!IMPORTANT]
+> There is no best and only solution, but here are some things to think about when choosing where to add indexes:
+> - What are your most important queries and how often they arise?
+>   - If a query is slow but it's not very important or is only used rarely, you may not need indexes
+>   - How many rows does your table have and how fast is it growing?
+>       - If the number of rows will remain low, you may not need indexes
 
 ## Transactions
 
