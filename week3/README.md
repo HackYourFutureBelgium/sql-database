@@ -11,15 +11,178 @@ TODO
 
 ## Writing data
 
-TODO
+> [!TIP]
+> To reset the `books` database into it's original state, run the following command in a terminal:
+> ```shell
+> $ mysql -u "root" -p < "week2/databases/books.sql"
+> ``` 
+
+Let's go back to the `books` database. Here is a snapshot of tables from this database. TODO
+
+#### Inserting Data
+
+The SQL statement `INSERT INTO` is used to insert a row of data into a given table. For example, to insert a row in the `authors` table:
+
+```sql
+INSERT INTO authors (id, name, country, date_of_birth) VALUES (16, 'Manuel Paulo', 'Portugal', '1927-03-06'),
+-- Query OK, 1 row affected (0,00 sec)
+```
+
+We can see that this command requires the list of columns in the table that will receive new data and the values to be added to each column, in the same order.
+
+We can run a query to confirm that the row is now present in `authors`:
+
+```sql
+SELECT * FROM authors WHERE name = 'Manuel Paulo'
+
+-- +----+--------------+----------+---------------+
+-- | id | name         | country  | date_of_birth |
+-- +----+--------------+----------+---------------+
+-- | 16 | Manuel Paulo | Portugal | 1927-03-06    |
+-- +----+--------------+----------+---------------+
+-- 1 row in set (0,00 sec)
+```
+
+We can add more rows to the database by inserting multiple times. 
+
+However, typing out the value of the `id` column manually (as 1, 2, 3 etc.) might result in errors. Since we've set the `id` column as `AUTO_INCREMENT`, MySQL can fill out the column values automatically. To make of this functionality, we omit the `id` column when inserting a new row:
+
+```sql
+INSERT INTO authors (name, country, date_of_birth) VALUES ('Cory Doctorow', 'Canada', '1971-07-17'),
+-- Query OK, 1 row affected (0,00 sec)
+
+SELECT * FROM authors WHERE NAME = 'Cory Doctorow'
+-- +----+---------------+---------+---------------+
+-- | id | name          | country | date_of_birth |
+-- +----+---------------+---------+---------------+
+-- | 17 | Cory Doctorow | Canada  | 1971-07-17    |
+-- +----+---------------+---------+---------------+
+-- 1 row in set (0,01 sec)
+```
+
+> [!NOTE] 
+> When using `AUTO_INCREMENT` MySQL fills out the primary key values by incrementing the previous primary key - in this case, 16.
+
+> [!TIP]
+> We can insert multiple rows at by separating the rows using commas:
+> ```sql
+> INSERT INTO authors (name, country, date_of_birth) 
+> VALUES 
+> ('David Graeber', 'United States of America', '1999-01-01'),
+> ('McKenzie Wark', 'Australia', '1961-09-10'),
+> ('Fernando Pessoa', 'Portugal', '1888-06-13')
+> -- Query OK, 3 rows affected (0,00 sec)
+> -- Records: 3  Duplicates: 0  Warnings: 0
+> ```
+
+#### Updating data
+
+We can easily imagine scenarios in which data in a database would need to be updated. For example, in the `books` database, an author's date of birth may have been incorrectly set.
+
+We can use the `UPDATE` command to update the `authors` table with David Graeber's correct date of birth:
+
+```sql
+UPDATE authors
+SET date_of_birth = '1961-12-01'
+WHERE name = 'David Graeber'
+
+-- Query OK, 1 row affected (0,00 sec)
+-- Rows matched: 1  Changed: 1  Warnings: 0
+```
+The first part of this query specifies the table to be updated. The next part specifies the column we're updating and its new value. The last part selects the row(s) in `authors` which will be updated - author(s) with `name` David Graeber.
+
+#### Deleting data
+
+Besides updating, we can also delete rows that match specific conditions. For example, to delete David Graeber from the `authors` table we can run:
+
+```sql
+DELETE FROM authors WHERE name = 'David Graeber'
+-- Query OK, 1 row affected (0,01 sec)
+```
+
+We can use the `WHERE` clause to filter rows in more complex ways, just like in the `SELECT` and `UPDATE` commands. For example, to delete rows pertaining to portuguese authors born before 1900:
+
+```sql
+DELETE FROM authors WHERE date_of_birth < '1900-01-01' and country = 'Portugal'
+-- Query OK, 1 row affected (0,01 sec)
+
+-- Note: this should delete author Fernando Pessoa
+```
+
+> [!WARNING]
+> Running a `DELETE` command without a `WHERE` clause **deletes all rows from a table**.
+> ```sql
+> DELETE FROM authors; -- don't do this
+> ```
+
+There might be cases where deleting some data could impact the integrity of a database. Foreign key constraints are a good example. A foreign key column references the primary key of a different table. If we were to delete the primary key, the foreign key column would have nothing to reference.
+
+> [!TIP]
+> Here's how we created the `authored` table:
+> ```sql
+> CREATE TABLE authored (
+>   author_id INTEGER,
+>   book_id INTEGER,
+>   FOREIGN KEY(author_id) REFERENCES authors(id), 
+>   FOREIGN KEY(book_id) REFERENCES books(id),      
+>   PRIMARY KEY (author_id, book_id)
+> );
+>```
+
+For example, the primary key of `authors` is a foreign key in the `authored` table (`authored.book_id`) - that's how we represented the many-to-many relationship between Authors and Books.
+
+Given this, if we choose do delete an author that has written at least one book (for example, author with id `2`) - what would happen to the rows in the table `authored` that reference that author (`authored.author_id == '2'`)?
+
+```sql
+DELETE FROM authors WHERE id = 2;
+
+-- ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`books`.`authored`, CONSTRAINT `authored_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`))
+```
+
+On running this, we get an error notifying us that deleting this data would violate the constraint set up in the `authored` table. 
+
+How do we ensure that the constraint is not violated? One possibility is to delete the corresponding rows from the `authored` table before deleting from the `authors` table.
+
+```sql
+DELETE FROM authored WHERE author_id = 2;
+-- Query OK, 1 row affected (0,01 sec)
+```
+
+This query effectively deletes the author’s affiliation with their book. Once the affiliation no longer exists, we can delete the author’s data without violating the foreign key constraint. The following should now work:
+
+```sql
+DELETE FROM authors WHERE id = 2;
+-- Query OK, 1 row affected (0,01 sec)
+```
+
+Alternatively, we can specify the action to be taken when an id referenced by a foreign key is deleted. To do this, we use the keyword `ON DELETE` followed the action to be taken.
+
+For example, this is how we would create the `authored` schema if we want to **allow** the deletion of ids that are referenced by a foreign key and also proceeds to cascandingly delete the referencing foreign key rows:
+
+```sql
+CREATE TABLE authored (
+  author_id INTEGER,
+  book_id INTEGER,
+  FOREIGN KEY(author_id) REFERENCES authors(id) ON DELETE CASCADE, -- set on delete cascade
+  FOREIGN KEY(book_id) REFERENCES books(id) ON DELETE CASCADE, -- set on delete cascade     
+  PRIMARY KEY (author_id, book_id)
+);
+```
+
+This would mean that running a `DELETE` statement will not result in an error when trying to delete an author that is linked to a book. Instead, both the entry in the `authors` and `authored` table will be deleted.
+
+> [!IMPORTANT]
+> Deciding whether or not to cascade deletions depends on your use case. There are other options for the `ON DELETE` clause in constraints, for example ([MySQL](https://dev.mysql.com/doc/refman/8.4/en/create-table-foreign-keys.html#foreign-key-referential-actions)):
+> - `ON DELETE RESTRICT`: (default) restricts us from deleting rows when a foreign key constraint is violated
+> - `ON DELETE SET NULL`: allows the deletion of rows when a foreign key is violated and set the foreign key references to `NULL`
+> - `ON DELETE SET DEFAULT`: same as the previous but allows to set a default value instead of `NULL`
+>
 
 ## Views
 
 Thus far, we have learned about concepts that allow us to design complex databases and write data into them. Now, we will explore ways in which to obtain views from these databases.
 
-Let’s go back to the `books` database. Here is a snapshot of tables from this database.
-
-To find a book written by the author Haruki Murakami, we would need to go each of the three table above — first finding the author’s ID, then the corresponding book IDs and then the book titles. Instead, is there a way to put together related information from the three tables in a single view?
+To find a book written by the author Haruki Murakami, we would need to go each of the three table above — first finding the author’s `id`, then the corresponding book IDs and then the book titles. Instead, is there a way to put together related information from the three tables in a single place?
 
 Yes, we can use the `JOIN` command to combine rows from two or more tables based on a related column between them. Here is a SQL query to answer the question "What books were written by Haruki Murakami?":
 

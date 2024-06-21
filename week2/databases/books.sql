@@ -1,4 +1,3 @@
-/* DROP DATABASE IF EXISTS books*/;
 DROP DATABASE IF EXISTS books;
 
 CREATE DATABASE `books` DEFAULT CHARACTER SET utf8mb4;
@@ -6,7 +5,7 @@ CREATE DATABASE `books` DEFAULT CHARACTER SET utf8mb4;
 USE `books`;
 
 CREATE TABLE authors (
-    id INTEGER,
+    id INTEGER AUTO_INCREMENT,
     name TEXT NOT NULL,
     country TEXT,
     date_of_birth DATE,
@@ -14,13 +13,13 @@ CREATE TABLE authors (
 );
 
 CREATE TABLE publishers (
-    id INTEGER,
+    id INTEGER AUTO_INCREMENT,
     publisher TEXT,
     PRIMARY KEY(id)
 );
 
 CREATE TABLE books (
-    id INTEGER, 
+    id INTEGER AUTO_INCREMENT, 
     isbn TEXT NOT NULL,
     title TEXT, 
     pages INTEGER,
@@ -45,7 +44,7 @@ CREATE TABLE ratings (
 );
 
 CREATE TABLE translators (
-    id INTEGER,
+    id INTEGER AUTO_INCREMENT,
     name TEXT,
     PRIMARY KEY(id)
 );
