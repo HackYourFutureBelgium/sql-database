@@ -1,0 +1,57 @@
+<html>
+<head>
+  <title>Express</title>
+</head>
+<body>
+  <h1>My World App</h1>
+  <p>Search for a country...</p>
+
+  <form>
+    <input type="text" id="searchInput" style="width: 480px;">
+    <button type="submit">Search</button>
+  </form>
+
+  <div id="searchResults">
+    <!-- Results will be displayed here -->
+  </div>
+
+  <script>
+    const form = document.querySelector('form');
+    const searchResults = document.getElementById('searchResults');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      searchResults.innerHTML = '';
+
+      const searchInput = document.getElementById('searchInput').value;
+
+      fetch(`http://localhost:3000/search/${searchInput}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.length === 0) {
+            const noResults = document.createElement('p');
+            noResults.textContent = 'No results found';
+            searchResults.appendChild(noResults);
+            return;
+          }
+
+          const resultsList = document.createElement('ul');
+
+          data.forEach(result => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${result.code} - ${result.name}, population: ${result.population}`;
+            resultsList.appendChild(listItem);
+          });
+
+          searchResults.appendChild(resultsList);
+        })
+        .catch(error => {
+          const errorMessage = document.createElement('p');
+          errorMessage.textContent = 'Oops! Something went wrong';
+          searchResults.appendChild(errorMessage);
+        });
+    });
+  </script>
+</body>
+</html>
+
