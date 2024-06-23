@@ -232,7 +232,6 @@ CREATE VIEW AS author_book_title
 SELECT authors.name, books.title FROM authors
 JOIN authored ON authored.author_id = authors.id
 JOIN books ON authored.book_id = books.id
-WHERE authors.name = 'Haruki Murakami';
 
 ```
 
