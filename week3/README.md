@@ -1,9 +1,8 @@
-> [!WARNING]
-> This section is under development
-
 # Week 3
 
-TODO insert inspirational quote
+![alt text](./meme.png)
+
+https://xkcd.com/1409/
 
 ## Topics
 
@@ -13,15 +12,18 @@ TODO insert inspirational quote
 - [Transactions](#transactions)
 - [Access Controls](#access-controls)
 
-## Writing data
+## Manipulating data
 
 > [!TIP]
+> In this section we'll use the `books` database introduced in [Week 2](../week2/README.md) throughout the examples
 > To reset the `books` database into it's original state, run the following command in a terminal:
 > ```shell
-> $ mysql -u "root" -p < "week2/databases/books.sql"
+> $ mysql -u "root" -p < "week2/databases/books.sql" # replace 'root' with your user
 > ``` 
 
-Let's go back to the `books` database. Here is a snapshot of tables from this database. TODO
+Here is a snapshot of tables from the `books` database:
+
+![alt text](<hyf - authored.png>)
 
 #### Inserting Data
 
@@ -74,7 +76,7 @@ SELECT * FROM authors WHERE NAME = 'Cory Doctorow'
 > VALUES 
 > ('David Graeber', 'United States of America', '1999-01-01'),
 > ('McKenzie Wark', 'Australia', '1961-09-10'),
-> ('Fernando Pessoa', 'Portugal', '1888-06-13')
+> ('Fernando Pessoa', 'Portugal', '1888-06-13');
 > -- Query OK, 3 rows affected (0,00 sec)
 > -- Records: 3  Duplicates: 0  Warnings: 0
 > ```
@@ -88,7 +90,7 @@ We can use the `UPDATE` command to update the `authors` table with David Graeber
 ```sql
 UPDATE authors
 SET date_of_birth = '1961-12-01'
-WHERE name = 'David Graeber'
+WHERE name = 'David Graeber';
 
 -- Query OK, 1 row affected (0,00 sec)
 -- Rows matched: 1  Changed: 1  Warnings: 0
@@ -191,10 +193,10 @@ To find a book written by the author Haruki Murakami, we would need to go each o
 Yes, we can use the `JOIN` command to combine rows from two or more tables based on a related column between them. Here is a SQL query to answer the question "What books were written by Haruki Murakami?":
 
 ```sql
-select * from authors 
-join authored ON authored.author_id = authors.id 
-join books on authored.book_id = books.id
-where authors.name = 'Haruki Murakami';
+SELECT * FROM authors
+JOIN authored ON authored.author_id = authors.id
+JOIN books ON authored.book_id = books.id
+WHERE authors.name = 'Haruki Murakami';
 
 -- +----+-----------------+---------+---------------+-----------+---------+----+---------------+----------------+-------+--------------+--------------+
 -- | id | name            | country | date_of_birth | author_id | book_id | id | isbn          | title          | pages | published_on | publisher_id |
@@ -209,10 +211,11 @@ This makes it simple to observe that Haruki Murakami authored "Norwegian Wood".
 We can also adapt the query to remove the `id` columns, such that the results looks like the following:
 
 ```sql
-select authors.name, books.title from authors  -- return only author name and book title
-join authored ON authored.author_id = authors.id 
-join books on authored.book_id = books.id
-where authors.name = 'Haruki Murakami';
+SELECT authors.name, books.title FROM authors -- return only author name and book title
+JOIN authored ON authored.author_id = authors.id
+JOIN books ON authored.book_id = books.id
+WHERE authors.name = 'Haruki Murakami';
+
 
 -- +-----------------+----------------+
 -- | name            | title          |
@@ -225,10 +228,12 @@ where authors.name = 'Haruki Murakami';
 The above query is complex. Instead of always writing such query whenever we want to find which books were written by a given author, we can create a **view** - a virtual table - based on the query above using `CREATE VIEW`:
 
 ```sql
-create view author_book_title as 
-select authors.name, books.title from authors
-join authored ON authored.author_id = authors.id 
-join books on authored.book_id = books.id;
+CREATE VIEW AS author_book_title
+SELECT authors.name, books.title FROM authors
+JOIN authored ON authored.author_id = authors.id
+JOIN books ON authored.book_id = books.id
+WHERE authors.name = 'Haruki Murakami';
+
 ```
 
 The view created here is called `author_book_title`. This view can now be used exactly as we would use a table in SQL. For example:
@@ -253,7 +258,7 @@ SELECT * FROM author_book_title;
 Using this view, we can considerably simplify the query needed to find the books written by Haruki Murakami.
 
 ```sql
-select * from author_book_title where name = 'Haruki Murakami';
+SELECT * FROM author_book_title WHERE name = 'Haruki Murakami';
 -- +-----------------+----------------+
 -- | name            | title          |
 -- +-----------------+----------------+
@@ -263,7 +268,7 @@ select * from author_book_title where name = 'Haruki Murakami';
 ```
 
 > [!IMPORTANT]
-> A view is a virtual table defined by a query.
+> A view is a virtual table defined by a query. They can be helpful in various scenarios:
 > - simplifying: putting together data from different tables to be queried more simply,
 > - aggregating: running aggregate functions, like finding the sum, and storing the results,
 > - partitioning: dividing data into logical pieces,
@@ -308,8 +313,6 @@ SELECT * FROM authors_analysis;
 > [!TIP]
 > Views created with `CREATE VIEW` will be added to the database schema. 
 > To create views that are *not* stored in the database schema, we can use `CREATE TEMPORARY VIEW`. This creates a view that exists only for the duration of our connection to the database. 
-
-TODO exercise
 
 ## Triggers
 
@@ -418,14 +421,11 @@ SELECT * FROM authors_date_of_birth_audit;
 > [!TIP]
 > Triggers have many functionalities and use cases - this was just an example. For a more comprehensive overview of triggers in MySQL, check out their [documentation](https://dev.mysql.com/doc/refman/8.4/en/trigger-syntax.html).
 
-TODO exercise
-
 ## Indexes
 
 > [!NOTE]
-> In this section we'll use a new database `movies` that you can download from TODO.
-> You can connect to it using DBeaver. TODO
-> TODO explain this is SQLite
+> In this section we'll use a new database `movies` that you can download from [here](https://cdn.cs50.net/sql/2023/x/lectures/5/src5/indexes/movies.db).
+> This is not a MySQL database - it's SQLite. Still, you can connect to it using DBeaver and for the purpose of this section you can treat SQLite the same as MySQL.
 
 Indexes can be utilized to speed up our queries.
 
@@ -442,7 +442,7 @@ SELECT count(*) FROM movies;
 -- 1 row in set (0,00 sec)
 ```
 
-There are almost 420 thousand books in the table. This means that some of our queries start to take longer. 
+There are almost 420000 books in the table. This means that some of our queries start to take longer. 
 
 For example, to find the movie titled 'Cars':
 
@@ -536,13 +536,12 @@ where name = 'Tom Hanks'; -- (2)
 
 Now our query is *300 times* faster than before.
 
-TODO
 > [!IMPORTANT]
 > There is no best and only solution, but here are some things to think about when choosing where to add indexes:
 > - What are your most important queries and how often they arise?
 >   - If a query is slow but it's not very important or is only used rarely, you may not need indexes
->   - How many rows does your table have and how fast is it growing?
->       - If the number of rows will remain low, you may not need indexes
+> - How many rows does your table have and how fast is it growing?
+>   - If the number of rows will remain low, you may not need indexes
 
 ## Transactions
 
@@ -568,12 +567,23 @@ To move $10 from Alice’s account to Bob’s, we can write the following transa
 
 ```sql
 BEGIN TRANSACTION;
-UPDATE "accounts" SET "balance" = "balance" + 10 WHERE "id" = 2; -- Adding money to Bob's account
-UPDATE "accounts" SET "balance" = "balance" - 10 WHERE "id" = 1; -- Removing money from Alice's account
+UPDATE accounts SET balance = balance + 10 WHERE id = 2; -- Adding money to Bob's account
+UPDATE accounts SET balance = balance - 10 WHERE id = 1; -- Removing money from Alice's account
 COMMIT;
 ```
 
 Notice the `UPDATE` statements are written in between the commands to begin the transaction and to commit it. If we execute the query after writing the `UPDATE` statements, but without committing, neither of the two `UPDATE` statements will be run! This helps keep the transaction atomic. By updating our table in this way, we are unable to see the intermediate steps.
+
+If we tried to run the above transaction again — Alice tries to pay Bob another $10 — it should fail to run because Alice’s account balance is at 0.
+
+The way we implement reverting the transaction is using `ROLLBACK`. Once we begin a transaction and write some SQL statements, if any of them fail, we can end it with a `ROLLBACK` to revert all values to their pre-transaction state. This helps keep transactions consistent.
+
+```sql
+BEGIN TRANSACTION;
+UPDATE accounts SET balance = balance + 10 WHERE id = 2; 
+UPDATE accounts SET balance = balance - 10 WHERE id = 1; -- Invokes constraint error
+ROLLBACK;
+```
 
 > [!IMPORTANT]
 > Transactions are atomic units of work that can be **committed** or **rolled back**. When a transaction makes multiple changes to the database, either all the changes succeed when the transaction is committed, or all the changes are undone when the transaction is rolled back. 
@@ -677,7 +687,8 @@ SELECT * FROM authors;
 
 ## SQL Injection
 
-TODO
+> [!WARNING]
+> This sections is under development
 
 ## References
 
