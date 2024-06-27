@@ -34,7 +34,7 @@ In this section you should include your entity relationship diagram and describe
 
 The below entity relationship diagram describes the relationships among the entities in the database.
 
-![ER Diagram](PaymentERdiagram.png)
+![ER Diagram](Week3_Payment_ERdiagram.png)
 
 As detailed by the diagram:
 
