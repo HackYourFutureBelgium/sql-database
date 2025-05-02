@@ -211,8 +211,7 @@ You should see an output similar to the following:
 - On the left sidebar ("Database Navigator"), click "New Database Connection"
 - Choose `MySQL` as driver
 
-<img src="./images/choose-driver
-.png" alt="choose mysql drive" width="66%"/>
+<img src="./images/choose-driver.png" alt="choose mysql drive" width="66%"/>
 
 - Enter the following information:
   - Server Host: `localhost`

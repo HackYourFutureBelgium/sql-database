@@ -46,6 +46,5 @@ For these exercises, you need to learn about Aggregations in SQL. Try solving th
 
 Once you're sure you have the right queries, add them to a file `databases-week1-exercises.sql` - you can use [this one](./databases/databases-week1-exercises.sql) as an example.
 
-Please share that file with your Coach:
-- [Class 22](https://github.com/HackYourFutureBelgium/sql-database/issues/8)
-- [Class 23](https://github.com/HackYourFutureBelgium/sql-database/issues/7)
+Please share that file with your Coach: 
+- [Brussels Class](https://github.com/HackYourFutureBelgium/sql-database/issues/37)
