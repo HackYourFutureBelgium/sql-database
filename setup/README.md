@@ -57,12 +57,19 @@ $ sudo apt update
 sudo apt install mysql-server
 ```
 
-4. During the installation, you'll be prompted to set a root password for MySQL.
+4. During the installation, you might be prompted to set a root password for MySQL. Do not forget it if you are.
 
 5. Start the MySQL service:
 
 ```shell
 sudo service mysql start
+```
+
+6. If you were not prompted to set a root password for MySQL during installation, run `sudo mysql`, which will create a MySQL shell, and in it run the following commands to set one now:
+```shell
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<your_root_password_here>';
+FLUSH PRIVILEGES;
+exit;
 ```
 
 #### Using MySQL APT Repository
@@ -83,12 +90,19 @@ $ sudo apt update
 $ sudo apt install mysql-server
 ```
 
-5. During the installation, you'll be prompted to set a root password for MySQL.
+5. During the installation, you might be prompted to set a root password for MySQL. Do not forget it if you are.
 
 6. Start the MySQL service:
 
 ```shell
 $ sudo service mysql start
+```
+
+7. If you were not prompted to set a root password for MySQL during installation, run `sudo mysql`, which will create a MySQL shell, and in it run the following commands to set one now:
+```shell
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<your_root_password_here>';
+FLUSH PRIVILEGES;
+exit;
 ```
 
 ### Windows
