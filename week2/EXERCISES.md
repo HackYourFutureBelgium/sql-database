@@ -1,6 +1,3 @@
-> [!WARNING]
-> This section is under development
-
 # Exercises Week 2
 
 ## Exercise 1: Company<sup>[[1](#references)]</sup>
@@ -116,8 +113,7 @@ Your database should be able to represent…
 ## Submitting your work
 
 Once you've completed the exercises, please share them with your Coach:
-- [Class 22](https://github.com/HackYourFutureBelgium/sql-database/issues/27)
-- [Class 23](https://github.com/HackYourFutureBelgium/sql-database/issues/28)
+- [Brussels Class](https://github.com/HackYourFutureBelgium/sql-database/issues/39)
 
 ## References
 
