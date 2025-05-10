@@ -43,7 +43,7 @@ For these exercises, you need to learn about Aggregations in SQL. Try solving th
 
 For the exercises we'll be using another example database (`Sakila`), so we must set it up.
 
-## Setting up the `Sakila` database
+### Setting up the `Sakila` database
 
 1. If you haven't already, clone this repository and enter its directory: 
 
