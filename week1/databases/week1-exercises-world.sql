@@ -1,3 +1,5 @@
+------- WORLD DATABASE EXERCISES -----
+
 -- 1. What are the names of countries with population greater than 8 million?
 SELECT Name 
 FROM country
@@ -55,7 +57,6 @@ SELECT ...
 
 -- 3. How many *official* languages are spoken in Belgium (`BEL`)? Return the country code, and the number of languages as "Number of Languages"
 SELECT ...
-
 
 -- MORE
 -- 1. Retrieve the names of all the cities along with their respective country names, make sure the column names are easy to understand.
