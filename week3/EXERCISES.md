@@ -1,6 +1,3 @@
-> [!WARNING]
-> This section is under development
-
 # Exercises Week 3
 
 ## Final Project<sup>[[1](#references)]</sup>
@@ -27,8 +24,7 @@ To provide you some structure with which to start building your final project, w
 ### Submitting your work
 
 Once you've completed your project, please share them with your Coach:
-- [Class 22](https://github.com/HackYourFutureBelgium/sql-database/issues/31)
-- [Class 23](https://github.com/HackYourFutureBelgium/sql-database/issues/32)
+- [Brussels ](https://github.com/HackYourFutureBelgium/sql-database/issues/42)
 
 ## References
 
