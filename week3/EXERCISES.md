@@ -16,8 +16,9 @@ You can build around any problem you want. To get your thinking started, here ar
 
 ### Template Files
 
-To provide you some structure with which to start building your final project, we’ve provided you with three template files: 
-- [`DESIGN.md`](./your-project/DESIGN.md)
+For this exercise you should deliver 3 files: 
+- [`DESIGN.md`](./your-project/DESIGN.md
+    - See the linked example file for the full description
 - [`schema.sql`](./your-project/schema.sql)
     -  Your schema.sql file should include a set of SQL statements to define your database’s schema, annotated with brief SQL comments.
     -  Your schema.sql file will likely contain CREATE TABLE, CREATE INDEX, and CREATE VIEW statements.
@@ -32,3 +33,4 @@ Once you've completed your project, please share them with your Coach:
 ## References
 
 - [1] Adapted from [CS50’s Introduction to Databases with SQL](https://cs50.harvard.edu/sql/2024/project/), including the sample project.
+
