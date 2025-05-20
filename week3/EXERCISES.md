@@ -16,8 +16,9 @@ You can build around any problem you want. To get your thinking started, here ar
 
 ### Template Files
 
-For this exercise you should deliver 3 files: 
-- [`DESIGN.md`](./your-project/DESIGN.md
+For this exercise you should deliver 3 files:
+
+- [`DESIGN.md`](./your-project/DESIGN.md)
     - See the linked example file for the full description
 - [`schema.sql`](./your-project/schema.sql)
     -  Your schema.sql file should include a set of SQL statements to define your database’s schema, annotated with brief SQL comments.
