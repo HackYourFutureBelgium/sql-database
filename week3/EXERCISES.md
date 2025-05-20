@@ -19,7 +19,10 @@ You can build around any problem you want. To get your thinking started, here ar
 To provide you some structure with which to start building your final project, we’ve provided you with three template files: 
 - [`DESIGN.md`](./your-project/DESIGN.md)
 - [`schema.sql`](./your-project/schema.sql)
+    -  Your schema.sql file should include a set of SQL statements to define your database’s schema, annotated with brief SQL comments.
+    -  Your schema.sql file will likely contain CREATE TABLE, CREATE INDEX, and CREATE VIEW statements.
 - [`queries.sql`](./your-proejct/queries.sql)
+    - Your queries.sql file should include a set of SQL queries typically run on your database, annotated with brief SQL comments. Your queries.sql file will likely contain SELECT, INSERT, UPDATE, and DELETE stateme 
 
 ### Submitting your work
 
